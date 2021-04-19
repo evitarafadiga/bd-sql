@@ -1,0 +1,13 @@
+﻿
+
+CREATE DATABASE LIVRARIA
+GO
+USE LIVRARIA
+
+CREATE TABLE LIVRO(
+codigo_livro		INT(10)			NOT NULL,
+nome				VARCHAR(100)	NOT NULL,
+lingua				VARCHAR(50)		NOT NULL,
+ano					INT(10)			NOT NULL
+
+PRIMARY KEY (codigo_livro) );
