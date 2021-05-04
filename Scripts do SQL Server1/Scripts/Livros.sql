@@ -51,3 +51,6 @@ PRIMARY KEY(edicoes_isbn, editora_codigo_editora, livro_codigo_livro),
 FOREIGN KEY(edicoes_isbn) REFERENCES EDICOES(isbn),
 FOREIGN KEY(editora_codigo_editora) REFERENCES EDITORA(codigo_editora),
 FOREIGN KEY(livro_codigo_livro) REFERENCES LIVRO(codigo_livro) );
+
+
+
