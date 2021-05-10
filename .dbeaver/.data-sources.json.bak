@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"microsoft-17938a3c41e-3ded0dc6ff6eb364": {
+		"microsoft-1795360af1b-24dd961517ec150d": {
 			"provider": "sqlserver",
 			"driver": "microsoft",
 			"name": "master",
