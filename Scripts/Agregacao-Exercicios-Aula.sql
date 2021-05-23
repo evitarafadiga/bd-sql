@@ -1,0 +1,11 @@
+--1) Sabendo que MAX() é função de agregação, faça uma consulta que retorne a maior nota de P2 de Laboratório de Hardware
+--2) Consultar quantos alunos estão cadastrados e não estão em nenhuma matéria
+--3)
+--Montar a seguinte tabela de saída:
+--(ra formatado, nome, nota_final, conceito, 
+--faltante(quanto faltou para passar (null 
+--para aprovados)), min_exame (quanto precisa 
+--tirar no exame para passar (null para 
+--alunos com notas maior que 6,0 e menor que
+--3,0)))
+
