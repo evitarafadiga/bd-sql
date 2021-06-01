@@ -1,0 +1,13 @@
+USE Concessionaria
+
+SELECT * FROM CLIENTE
+SELECT * FROM CARRO
+SELECT * FROM PECAS
+SELECT * FROM SERVICO
+
+SELECT CLIENTE.telefone, CARRO.marca, CARRO.cor
+FROM Concessionaria.dbo.CLIENTE
+INNER JOIN Concessionaria.dbo.CARRO
+ON CARRO.
+WHERE Carro.modelo LIKE 'Ka'
+AND
