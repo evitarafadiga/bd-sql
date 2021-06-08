@@ -9,8 +9,8 @@ public interface ILivroController {
 	public void inserirLivro(Livro l) throws ClassNotFoundException, SQLException;
 	public void atualizarLivro(Livro l) throws ClassNotFoundException, SQLException;
 	public void excluirLivro(Livro l) throws ClassNotFoundException, SQLException;
-	public void buscaLivro(Livro l) throws ClassNotFoundException, SQLException;
-	public void buscaLivros() throws ClassNotFoundException, SQLException;
+	public void buscarLivro(Livro l) throws ClassNotFoundException, SQLException;
+	public void buscarLivros() throws ClassNotFoundException, SQLException;
 	
 
 }

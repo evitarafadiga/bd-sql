@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -22,7 +23,11 @@
                   <Button fx:id="delLivro" layoutX="351.0" layoutY="242.0" mnemonicParsing="false" onAction="#acaoLivro" text="Excluir" />
                   <Button fx:id="listarLivro" layoutX="484.0" layoutY="242.0" mnemonicParsing="false" onAction="#acaoLivro" text="Listar" />
                   <TextField layoutX="48.0" layoutY="177.0" promptText="Autor" />
-                  <TextArea layoutX="23.0" layoutY="293.0" prefHeight="200.0" prefWidth="554.0" />
+                  <ScrollPane layoutX="23.0" layoutY="293.0">
+                     <content>
+                        <TextArea prefHeight="200.0" prefWidth="554.0" />
+                     </content>
+                  </ScrollPane>
                </children></AnchorPane>
       </content>
     </Tab>
