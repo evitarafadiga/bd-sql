@@ -24,3 +24,7 @@ SELECT p.nome, p.cpf
 FROM PACIENTES AS p
 WHERE p.cpf LIKE '%35%'
 
+SELECT c.cpf, SUBSTRING(c.cpf,1,3) + '-' + SUBSTRING(c.cpf,4,6) + '-' + SUBSTRING(c.cpf,7,9) + '-' + SUBSTRING (c.cpf,10,11) AS cpf_,
+c.nome, c.rua, c.n, c.bairro, c.telefone
+FROM PACIENTES c
+WHERE c.nome LIKE '%Vinicius%'
