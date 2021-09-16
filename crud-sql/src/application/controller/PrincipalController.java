@@ -40,13 +40,10 @@ public class PrincipalController {
 	public void acaoLivro(ActionEvent event) {
 		String cmd = event.getSource().toString();
 		
-		LivroController livroController =
-				new LivroController(tfIsbnLivro, tfTituloLivro, tfAutorLivro, taListaLivros);
+		LivroController livroController = new LivroController(tfIsbnLivro, tfTituloLivro, tfAutorLivro, taListaLivros);
 		
 		if ((cmd.contains("Inserir") || cmd.contains("Atualizar")) && 
-				(tfIsbnLivro.getText().isEmpty() 
-						|| tfTituloLivro.getText().isEmpty()
-						|| tfAutorLivro.getText().isEmpty())) {
+				(tfIsbnLivro.getText().isEmpty() || tfTituloLivro.getText().isEmpty() || tfAutorLivro.getText().isEmpty())) {
 			JOptionPane.showMessageDialog(null, "Preencha os campos.", "ERRO", JOptionPane.ERROR_MESSAGE);
 		} else {
 			if (cmd.contains("Excluir") || (cmd.contains("Buscar") || (cmd.contains("tfIsbnLivro")
