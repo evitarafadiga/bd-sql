@@ -2,34 +2,34 @@ package model;
 
 public class Filme {
 	
-	private int idFilme;
-	private String nomeBr;
-	private String nomeEn;
+	private int idfilme;
+	private String nomeBR;
+	private String nomeEN;
 	private int anoLancamento;
 	private String sinopse;
 	
 	@Override
 	public String toString() {
-		return "Filme [idFilme=" + idFilme + ", nomeBr=" + nomeBr + ", nomeEn=" + nomeEn + ", anoLancamento="
+		return "Filme [idfilme=" + idfilme + ", nomeBr=" + nomeBR + ", nomeEn=" + nomeEN + ", anoLancamento="
 				+ anoLancamento + ", sinopse=" + sinopse + "]";
 	}
-	public int getIdFilme() {
-		return idFilme;
+	public int getIdfilme() {
+		return idfilme;
 	}
-	public void setIdFilme(int idFilme) {
-		this.idFilme = idFilme;
+	public void setIdfilme(int idfilme) {
+		this.idfilme = idfilme;
 	}
-	public String getNomeBr() {
-		return nomeBr;
+	public String getNomeBR() {
+		return nomeBR;
 	}
-	public void setNomeBr(String nomeBr) {
-		this.nomeBr = nomeBr;
+	public void setNomeBR(String nomeBR) {
+		this.nomeBR = nomeBR;
 	}
-	public String getNomeEn() {
-		return nomeEn;
+	public String getNomeEN() {
+		return nomeEN;
 	}
-	public void setNomeEn(String nomeEn) {
-		this.nomeEn = nomeEn;
+	public void setNomeEN(String nomeEN) {
+		this.nomeEN = nomeEN;
 	}
 	public int getAnoLancamento() {
 		return anoLancamento;
