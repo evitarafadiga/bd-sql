@@ -1,10 +1,8 @@
 package model;
 
-import java.util.Date;
-
 public class Jogo {
 
-	private Date datahora;
+	private int idjogo;
 	private int codigotimea;
 	private int codigotimeb;
 	private int golstimea;
@@ -12,14 +10,14 @@ public class Jogo {
 	
 	@Override
 	public String toString() {
-		return "Jogo [datahora=" + datahora + ", codigotimea=" + codigotimea + ", codigotimeb=" + codigotimeb
+		return "Jogo [idjogo=" + idjogo + ", codigotimea=" + codigotimea + ", codigotimeb=" + codigotimeb
 				+ ", golstimea=" + golstimea + ", golstimeb=" + golstimeb + "]";
 	}
-	public Date getDatahora() {
-		return datahora;
+	public int getIdjogo() {
+		return idjogo;
 	}
-	public void setDatahora(Date datahora) {
-		this.datahora = datahora;
+	public void setIdjogo(int idjogo) {
+		this.idjogo = idjogo;
 	}
 	public int getCodigotimea() {
 		return codigotimea;
@@ -45,5 +43,4 @@ public class Jogo {
 	public void setGolstimeb(int golstimeb) {
 		this.golstimeb = golstimeb;
 	}
-	
 }

@@ -1,9 +1,9 @@
 package model;
 
-public class Grupos {
+public class Grupo {
 	
 	private int id;
-	private char letra;
+	private String letra;
 	private int codigotimegrupo;
 	
 	@Override
@@ -16,11 +16,11 @@ public class Grupos {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public char getLetra() {
+	public String getLetra() {
 		return letra;
 	}
-	public void setLetra(char letra) {
-		this.letra = letra;
+	public void setLetra(String string) {
+		this.letra = string;
 	}
 	public int getCodigotimegrupo() {
 		return codigotimegrupo;

@@ -9,7 +9,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Filme;
+import model.Jogo;
 
 public class FilmeDao implements IFilmeDao {
 	
@@ -21,25 +21,25 @@ public class FilmeDao implements IFilmeDao {
 	}
 
 	@Override
-	public String insertFilme(Filme film) throws SQLException {
+	public String insertFilme(Jogo film) throws SQLException {
 		String saida = insUpdDel(film,"I");
 		return saida;
 	}
 
 	@Override
-	public String updateFilme(Filme film) throws SQLException {
+	public String updateFilme(Jogo film) throws SQLException {
 		String saida = insUpdDel(film,"U");
 		return saida;
 	}
 
 	@Override
-	public String deleteFilme(Filme film) throws SQLException {
+	public String deleteFilme(Jogo film) throws SQLException {
 		String saida = insUpdDel(film,"D");
 		return saida;
 	}
 
 	@Override
-	public Filme selectFilme(Filme film) throws SQLException {
+	public Jogo selectFilme(Jogo film) throws SQLException {
 		String sql = "SELECT idfilme, nomeBR, nomeEN, anoLancamento, sinopse FROM filme WHERE idfilme = ?";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, film.getIdfilme());
@@ -51,7 +51,7 @@ public class FilmeDao implements IFilmeDao {
 			film.setAnoLancamento(rs.getInt("anoLancamento"));
 			film.setSinopse(rs.getString("sinopse"));
 		} else {
-			film = new Filme();
+			film = new Jogo();
 		}
 		rs.close();
 		ps.close();
@@ -60,8 +60,8 @@ public class FilmeDao implements IFilmeDao {
 	}
 
 	@Override
-	public List<Filme> selectFilmes() throws SQLException {
-		List<Filme> listaFilmes = new ArrayList<Filme>();
+	public List<Jogo> selectFilmes() throws SQLException {
+		List<Jogo> listaFilmes = new ArrayList<Jogo>();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT idfilme, nomeBR, nomeEN, anoLancamento, sinopse ");
 		sql.append("FROM filme");
@@ -69,7 +69,7 @@ public class FilmeDao implements IFilmeDao {
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			Filme film = new Filme();
+			Jogo film = new Jogo();
 			film.setIdfilme(rs.getInt("idfilme"));
 			film.setNomeBR(rs.getString("nomeBR"));
 			film.setNomeEN(rs.getString("nomeEN"));
@@ -84,7 +84,7 @@ public class FilmeDao implements IFilmeDao {
 		return listaFilmes;
 	}
 	
-	private String insUpdDel(Filme film, String cod) throws SQLException {
+	private String insUpdDel(Jogo film, String cod) throws SQLException {
 		String sql = "{CALL sp_iud_filme (?,?,?,?,?,?,?)}";
 		CallableStatement cs = c.prepareCall(sql);
 		cs.setString(1, cod);

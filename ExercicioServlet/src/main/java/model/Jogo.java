@@ -1,6 +1,6 @@
 package model;
 
-public class Filme {
+public class Jogo {
 	
 	private int idfilme;
 	private String nomeBR;

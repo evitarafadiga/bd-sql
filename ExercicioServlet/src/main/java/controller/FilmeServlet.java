@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Filme;
+import model.Jogo;
 import persistence.FilmeDao;
 import persistence.IFilmeDao;
 
@@ -33,26 +33,26 @@ public class FilmeServlet extends HttpServlet {
 		String cmd = request.getParameter("button");
 		String saida = "";
 		String erro = "";
-		List<Filme> listaFilmes = new ArrayList<Filme>();
-		Filme film = validaCampos(request, cmd);
+		List<Jogo> listaFilmes = new ArrayList<Jogo>();
+		Jogo film = validaCampos(request, cmd);
 		
 		try {
 			if (cmd.contains("Cadastrar")) {
 				if (film != null) {
 					saida = fDao.insertFilme(film);
-					film = new Filme();
+					film = new Jogo();
 				}
 			}
 			if (cmd.contains("Atualizar")) {
 				if (film != null) {
 					saida = fDao.updateFilme(film);
-					film = new Filme();
+					film = new Jogo();
 				}
 			}
 			if (cmd.contains("Excluir")) {
 				if (film != null) {
 					saida = fDao.deleteFilme(film);
-					film = new Filme();
+					film = new Jogo();
 				}
 			}
 			if (cmd.contains("Buscar")) {
@@ -78,8 +78,8 @@ public class FilmeServlet extends HttpServlet {
 		}
 	}
 
-	private Filme validaCampos(HttpServletRequest request, String cmd) {
-		Filme film = new Filme();
+	private Jogo validaCampos(HttpServletRequest request, String cmd) {
+		Jogo film = new Jogo();
 		if (cmd.contains("Cadastrar") || cmd.contains("Atualizar")) {
 			if (!request.getParameter("idfilme").trim().isEmpty() &&
 					!request.getParameter("nomeBR").trim().isEmpty() &&
