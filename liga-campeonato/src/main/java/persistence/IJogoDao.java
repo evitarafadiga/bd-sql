@@ -12,4 +12,5 @@ public interface IJogoDao {
 	public String deleteJogo (Jogo jogo) throws SQLException;
     public Jogo selectJogo (Jogo jogo) throws SQLException;
     public List<Jogo> selectJogos() throws SQLException;
+	public String divideGrupos() throws SQLException;
 }

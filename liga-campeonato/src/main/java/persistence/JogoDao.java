@@ -40,7 +40,7 @@ public class JogoDao implements IJogoDao {
 
 	@Override
 	public Jogo selectJogo(Jogo jogo) throws SQLException {
-		String sql = "SELECT idjogo, codigo_timea, codigo_timeb, gols_timea, gols_timeb FROM jogos WHERE idjogo = ?";
+		String sql = "SELECT idjogo, codigo_timea, codigo_timeb, gols_timea, gols_timeb, datahora FROM jogos WHERE idjogo = ?";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, jogo.getIdjogo());
 		
@@ -50,6 +50,7 @@ public class JogoDao implements IJogoDao {
 			jogo.setCodigotimeb(rs.getInt("codigo_timeb"));
 			jogo.setGolstimea(rs.getInt("gols_timea"));
 			jogo.setGolstimeb(rs.getInt("gols_timeb"));
+			jogo.setDatahora(rs.getString("datahora"));
 		} else {
 			jogo = new Jogo();
 		}
@@ -63,7 +64,7 @@ public class JogoDao implements IJogoDao {
 	public List<Jogo> selectJogos() throws SQLException {
 		List<Jogo> listaJogos = new ArrayList<Jogo>();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT idjogo, codigo_timea, codigo_timeb, gols_timea, gols_timeb ");
+		sql.append("SELECT idjogo, codigo_timea, codigo_timeb, gols_timea, gols_timeb, datahora ");
 		sql.append("FROM jogos");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
@@ -75,6 +76,7 @@ public class JogoDao implements IJogoDao {
 			jogo.setCodigotimeb(rs.getInt("codigo_timeb"));
 			jogo.setGolstimea(rs.getInt("gols_timea"));
 			jogo.setGolstimeb(rs.getInt("gols_timeb"));
+			jogo.setDatahora(rs.getString("datahora"));
 			
 			listaJogos.add(jogo);
 		}
@@ -85,7 +87,7 @@ public class JogoDao implements IJogoDao {
 	}
 	
 	private String insUpdDel(Jogo jogo, String cod) throws SQLException {
-		String sql = "{CALL sp_iud_filme (?,?,?,?,?,?,?)}";
+		String sql = "{CALL sp_iud_jogo (?,?,?,?,?,?,?,?)}";
 		CallableStatement cs = c.prepareCall(sql);
 		cs.setString(1, cod);
 		cs.setInt(2, jogo.getIdjogo());
@@ -93,10 +95,25 @@ public class JogoDao implements IJogoDao {
 		cs.setInt(4, jogo.getCodigotimeb());
 		cs.setInt(5, jogo.getGolstimea());
 		cs.setInt(6, jogo.getGolstimeb());
-		cs.registerOutParameter(7, Types.VARCHAR);
+		cs.setString(7, jogo.getDatahora());
+		cs.registerOutParameter(8, Types.VARCHAR);
 		
 		cs.execute();
-		String saida = cs.getString(7);
+		String saida = cs.getString(8);
+		cs.close();
+		
+		return saida;
+	}
+
+	@Override
+	public String divideGrupos() throws SQLException {
+		String sql = "{CALL divide_grupos (?)}";
+		CallableStatement cs = c.prepareCall(sql);
+		
+		cs.registerOutParameter(1, Types.VARCHAR);
+		
+		cs.execute();
+		String saida = cs.getString(1);
 		cs.close();
 		
 		return saida;

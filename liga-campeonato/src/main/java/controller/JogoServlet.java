@@ -13,14 +13,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Grupo;
 import model.Jogo;
 import persistence.JogoDao;
+import persistence.IGrupoDao;
 import persistence.IJogoDao;
 
 @WebServlet("/jogo")
 public class JogoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IJogoDao jDao;
+	private IGrupoDao gDao;
        
     public JogoServlet() {
     	try {
@@ -35,6 +38,7 @@ public class JogoServlet extends HttpServlet {
 		String saida = "";
 		String erro = "";
 		List<Jogo> listaJogos = new ArrayList<Jogo>();
+		List<Grupo> listaTabelas = new ArrayList<Grupo>();
 		Jogo jogo = validaCampos(request, cmd);
 		
 		try {
@@ -65,7 +69,16 @@ public class JogoServlet extends HttpServlet {
 				if (jogo != null) {
 					listaJogos = jDao.selectJogos();
 				}
-				
+			}
+			if (cmd.contains("Dividir Grupos")) {
+				if (jogo != null) {
+					saida = jDao.divideGrupos();
+				}
+			}
+			if (cmd.contains("Tabelas")) {
+				if (jogo != null) {
+					listaTabelas = gDao.selectGrupos();
+				}
 			}
 		} catch (SQLException e) {
 			erro = e.getMessage();

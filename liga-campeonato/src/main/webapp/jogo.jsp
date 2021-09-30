@@ -15,8 +15,10 @@
 	<form action="jogo" method="post">
 		<table>
 			<tr>
-				<td colspan="10"><input type="number" id="idjogo" name="idjogo" placeholder="" size="40" value="${jogo.idjogo }"></td>
-				<td><input type="submit" value="Buscar" id="button" name="button"></td>
+				<td colspan="10"><input type="number" id="idjogo" name="idjogo"
+					placeholder="" size="40" value="${jogo.idjogo }"></td>
+				<td><input type="submit" value="Buscar" id="button"
+					name="button"></td>
 			</tr>
 			<tr>
 				<td colspan="4"><input type="number" id="codigotimea"
@@ -35,6 +37,11 @@
 					value="${jogo.golstimeb }"></td>
 			</tr>
 			<tr>
+				<td colspan="4"><input type="text" id="datahora"
+					name="datahora" placeholder="Data do Jogo" size="20"
+					value="${jogo.datahora }"></td>
+			</tr>
+			<tr>
 				<td><input type="submit" value="Cadastrar" id="button"
 					name="button"></td>
 				<td><input type="submit" value="Atualizar" id="button"
@@ -42,6 +49,10 @@
 				<td><input type="submit" value="Excluir" id="button"
 					name="button"></td>
 				<td><input type="submit" value="Listar" id="button"
+					name="button"></td>
+				<td><input type="submit" value="Dividir Grupos" id="button"
+					name="button"></td>
+				<td><input type="submit" value="Tabelas" id="button"
 					name="button"></td>
 			</tr>
 		</table>
@@ -68,6 +79,7 @@
 						<th>Código do Time B</th>
 						<th>Gols do Time A</th>
 						<th>Gols do Time B</th>
+						<th>Data do Jogo</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -78,6 +90,7 @@
 							<td>${jogo.codigotimeb }</td>
 							<td>${jogo.golstimea }</td>
 							<td>${jogo.golstimeb }</td>
+							<td>${jogo.datahora }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

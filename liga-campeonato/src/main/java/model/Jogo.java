@@ -7,11 +7,12 @@ public class Jogo {
 	private int codigotimeb;
 	private int golstimea;
 	private int golstimeb;
+	private String datahora;
 	
 	@Override
 	public String toString() {
 		return "Jogo [idjogo=" + idjogo + ", codigotimea=" + codigotimea + ", codigotimeb=" + codigotimeb
-				+ ", golstimea=" + golstimea + ", golstimeb=" + golstimeb + "]";
+				+ ", golstimea=" + golstimea + ", golstimeb=" + golstimeb + ", data " + datahora +"]";
 	}
 	public int getIdjogo() {
 		return idjogo;
@@ -42,5 +43,12 @@ public class Jogo {
 	}
 	public void setGolstimeb(int golstimeb) {
 		this.golstimeb = golstimeb;
+	}
+	
+	public String getDatahora() {
+		return datahora;
+	}
+	public void setDatahora(String data) {
+		this.datahora = data;
 	}
 }
