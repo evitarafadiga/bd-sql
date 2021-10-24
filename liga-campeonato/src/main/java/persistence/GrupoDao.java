@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +41,9 @@ public class GrupoDao implements IGrupoDao {
 
 	@Override
 	public Grupo selectGrupo(Grupo grup) throws SQLException {
-		String sql = "SELECT id, letra, codigo_time_grupo FROM grupos WHERE id = ?";
+		String sql = "SELECT letra, codigo_time_grupo FROM grupos WHERE codigo_time_grupo = ?";
 		PreparedStatement ps = c.prepareStatement(sql);
-		ps.setInt(1, grup.getId());
+		ps.setInt(2, grup.getCodigotimegrupo());
 		
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
@@ -61,14 +62,13 @@ public class GrupoDao implements IGrupoDao {
 	public List<Grupo> selectGrupos() throws SQLException {
 		List<Grupo> listaGrupos = new ArrayList<Grupo>();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT id, letra, codigo_time_grupo ");
+		sql.append("SELECT letra, codigo_time_grupo ");
 		sql.append("FROM grupos");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			Grupo grup = new Grupo();
-			grup.setId(rs.getInt("id"));
 			grup.setLetra(rs.getString("letra"));
 			grup.setCodigotimegrupo(rs.getInt("codigo_time_grupo"));
 			
@@ -81,17 +81,29 @@ public class GrupoDao implements IGrupoDao {
 		return listaGrupos;
 	}
 	
+	
 	private String insUpdDel(Grupo grup, String cod) throws SQLException {
-		String sql = "{CALL sp_iud_grupo (?,?,?,?,?)}";
+		String sql = "{CALL sp_iud_grupo (?,?,?,?)}";
 		CallableStatement cs = c.prepareCall(sql);
 		cs.setString(1, cod);
-		cs.setInt(2, grup.getId());
-		cs.setString(3, grup.getLetra());
-		cs.setInt(4, grup.getCodigotimegrupo());
-		cs.registerOutParameter(5, Types.VARCHAR);
+		cs.setString(2, grup.getLetra());
+		cs.setInt(3, grup.getCodigotimegrupo());
+		cs.registerOutParameter(4, Types.VARCHAR);
 		
 		cs.execute();
-		String saida = cs.getString(5);
+		String saida = cs.getString(4);
+		cs.close();
+		
+		return saida;
+	}
+	
+	public String generateGrupos(Grupo grup) throws SQLException {
+		String sql = "{CALL sp_divide_grupos (?)}";
+		CallableStatement cs = c.prepareCall(sql);
+		cs.registerOutParameter(1, Types.VARCHAR);
+		
+		cs.execute();
+		String saida = cs.getString(1);
 		cs.close();
 		
 		return saida;

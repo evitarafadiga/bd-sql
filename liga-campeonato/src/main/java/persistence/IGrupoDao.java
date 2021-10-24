@@ -12,4 +12,5 @@ public interface IGrupoDao {
 	public String deleteGrupo (Grupo grup) throws SQLException;
     public Grupo selectGrupo (Grupo grup) throws SQLException;
     public List<Grupo> selectGrupos() throws SQLException;
+    public String generateGrupos(Grupo grup) throws SQLException;
 }

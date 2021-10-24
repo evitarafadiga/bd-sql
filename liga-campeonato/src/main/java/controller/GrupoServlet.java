@@ -66,6 +66,12 @@ public class GrupoServlet extends HttpServlet {
 				}
 				
 			}
+			if (cmd.contains("Gerar Grupos")) {
+				if (grup != null) {
+					saida = gDao.generateGrupos(grup);
+				}
+				
+			}
 		} catch (SQLException e) {
 			erro = e.getMessage();
 		} finally {
@@ -81,17 +87,15 @@ public class GrupoServlet extends HttpServlet {
 	private Grupo validaCampos(HttpServletRequest request, String cmd) {
 		Grupo grup = new Grupo();
 		if (cmd.contains("Cadastrar") || cmd.contains("Atualizar")) {
-			if (!request.getParameter("id").trim().isEmpty() &&
-					!request.getParameter("letra").trim().isEmpty() &&
+			if (	!request.getParameter("letra").trim().isEmpty() &&
 					!request.getParameter("codigotimegrupo").trim().isEmpty()) {
-				grup.setId(Integer.parseInt(request.getParameter("id").trim()));
 				grup.setLetra(request.getParameter("letra").trim());
 				grup.setCodigotimegrupo(Integer.parseInt(request.getParameter("codigotimegrupo").trim()));
 			}
 		}
 		if (cmd.contains("Excluir") || cmd.contains("Buscar")) {
-			if (!request.getParameter("id").trim().isEmpty()) {
-				grup.setId(Integer.parseInt(request.getParameter("id").trim()));
+			if (!request.getParameter("codigotimegrupo").trim().isEmpty()) {
+				grup.setCodigotimegrupo(Integer.parseInt(request.getParameter("codigotimegrupo").trim()));
 			}
 		}
 		return grup;

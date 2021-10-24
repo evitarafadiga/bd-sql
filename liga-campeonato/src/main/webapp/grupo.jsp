@@ -15,11 +15,12 @@
 	<form action="grupo" method="post">
 	<table>
 		<tr>
-			<td><input type="number" id="id" name="id" placeholder="ID" value="${grupo.id }"></td>
 			<td><input type="submit" value="Buscar" id="button" name="button"></td>
+			
+			<td><input type="submit" value="Gerar Grupos" id="button" name="button"></td>
 		</tr>
 		<tr>
-			<td colspan="4"><input type="text" id="letra" name="letra" placeholder="Chave" size="40" value="${grupo.letra }"></td>
+			<td colspan="4"><input type="text" id="letra" name="letra" placeholder="Chave" value="${grupo.letra }"></td>
 		</tr>
 		<tr>
 			<td><input type="number" id="codigotimegrupo" name="codigotimegrupo" placeholder="Codigo do Time do Grupo" value="${grupo.codigotimegrupo }"></td>
@@ -42,25 +43,95 @@
 	</div>
 	<div>
 		<c:if test="${not empty listaGrupos }">
-			<table border="1">
+		
+    		<c:if test="${grup.letra=='A'}">
+    		<c:forEach var="grup" items="${listaGrupos }">
+        		<table border="1">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Chave</th>
-					<th>Código do Time Grupo</th>
+					<th>Chave A</th>
+					<th>Código do Time</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="grup" items="${listaGrupos }">
+				
 					<tr>
-						<td>${grup.id }</td>
 						<td>${grup.letra }</td>
 						<td>${grup.codigotimegrupo }</td>
 					</tr>
-				</c:forEach>
+				
 			</tbody>
-			</table>
+			</table> 
+        		<br />
+        	</c:forEach>
+    		</c:if>
+    		<c:if test="${grup.letra=='B'}">
+    		<c:forEach var="grup" items="${listaGrupos }">
+        		<table border="1">
+			<thead>
+				<tr>
+					<th>Chave B</th>
+					<th>Código do Time</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+					<tr>
+						<td>${grup.letra }</td>
+						<td>${grup.codigotimegrupo }</td>
+					</tr>
+				
+			</tbody>
+			</table> 
+        		<br />
+        	</c:forEach>
+    		</c:if> 
+    		<c:if test="${grup.letra=='C'}">
+    		<c:forEach var="grup" items="${listaGrupos }">
+        		<table border="1">
+			<thead>
+				<tr>
+					<th>Chave C</th>
+					<th>Código do Time</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+					<tr>
+						<td>${grup.letra }</td>
+						<td>${grup.codigotimegrupo }</td>
+					</tr>
+				
+			</tbody>
+			</table> 
+        		<br />
+        	</c:forEach>
+    		</c:if> 
+    		
+    		<c:if test="${grup.letra=='D'}">
+    		<c:forEach var="grup" items="${listaGrupos }">
+        		<table border="1">
+			<thead>
+				<tr>
+					<th>Chave D</th>
+					<th>Código do Time</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+					<tr>
+						<td>${grup.letra }</td>
+						<td>${grup.codigotimegrupo }</td>
+					</tr>
+				
+			</tbody>
+			</table> 
+        		<br />
+        	</c:forEach>
+    		</c:if>  
+	
 		</c:if>
 	</div>
+	
 </body>
 </html>

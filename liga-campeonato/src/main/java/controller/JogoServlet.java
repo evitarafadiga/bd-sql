@@ -23,7 +23,6 @@ import persistence.IJogoDao;
 public class JogoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IJogoDao jDao;
-	private IGrupoDao gDao;
        
     public JogoServlet() {
     	try {
@@ -33,12 +32,13 @@ public class JogoServlet extends HttpServlet {
 		}
     }
 
+	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getParameter("button");
 		String saida = "";
 		String erro = "";
 		List<Jogo> listaJogos = new ArrayList<Jogo>();
-		List<Grupo> listaTabelas = new ArrayList<Grupo>();
+		List<Jogo> listaTabelas = new ArrayList<Jogo>();
 		Jogo jogo = validaCampos(request, cmd);
 		
 		try {
@@ -74,10 +74,16 @@ public class JogoServlet extends HttpServlet {
 				if (jogo != null) {
 					saida = jDao.divideGrupos();
 				}
-			}
+			}/*
 			if (cmd.contains("Tabelas")) {
 				if (jogo != null) {
-					listaTabelas = gDao.selectGrupos();
+					listaTabelas = jDao.selectJogos();
+				}
+			}*/
+			if (cmd.contains("Partidas Por Data")) {
+				if (jogo != null) {
+					listaJogos = jDao.selectPartidaPorData(request.getParameter("datepicker"));
+					System.out.println(request.getParameter("datepicker"));
 				}
 			}
 		} catch (SQLException e) {

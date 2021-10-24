@@ -1,5 +1,8 @@
 package model;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Jogo {
 
 	private int idjogo;
@@ -48,7 +51,7 @@ public class Jogo {
 	public String getDatahora() {
 		return datahora;
 	}
-	public void setDatahora(String data) {
-		this.datahora = data;
+	public void setDatahora(String string) {
+		this.datahora = string;
 	}
 }

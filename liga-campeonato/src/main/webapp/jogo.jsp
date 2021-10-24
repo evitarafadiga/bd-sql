@@ -37,9 +37,33 @@
 					value="${jogo.golstimeb }"></td>
 			</tr>
 			<tr>
-				<td colspan="4"><input type="text" id="datahora"
-					name="datahora" placeholder="Data do Jogo" size="20"
-					value="${jogo.datahora }"></td>
+				<td colspan="4">
+				
+				<div>
+				<html lang="en">
+				<head>
+  				<meta charset="utf-8">
+  				<meta name="viewport" content="width=device-width, initial-scale=3">
+  				<title>jQuery UI Datepicker - Default functionality</title>
+  				<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  				<link rel="stylesheet" href="/resources/demos/style.css">
+  				<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  				<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  					<script>
+  						$( function() {
+    					$( "#datepicker" ).datepicker({
+    			            dateFormat: "yy-mm-dd"
+    			        });
+  						} );
+  					</script>
+				</head>
+				<body>
+ 
+				<p>Data: <input type="text" id="datepicker" name="datepicker" value="${jogo.datahora }"></p>
+				</body>
+				</html>
+				</div>
+				
 			</tr>
 			<tr>
 				<td><input type="submit" value="Cadastrar" id="button"
@@ -54,9 +78,12 @@
 					name="button"></td>
 				<td><input type="submit" value="Tabelas" id="button"
 					name="button"></td>
+				<td><input type="submit" value="Partidas Por Data" id="button"
+					name="button"></td>
 			</tr>
 		</table>
 	</form>
+	
 	<div>
 		<c:if test="${not empty saida }">
 			<p>

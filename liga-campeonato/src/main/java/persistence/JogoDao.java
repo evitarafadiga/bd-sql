@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Jogo;
@@ -118,5 +120,33 @@ public class JogoDao implements IJogoDao {
 		
 		return saida;
 	}
+	
+	public List<Jogo> selectPartidaPorData(String datahora) throws SQLException {
+		List<Jogo> listaJogos = new ArrayList<Jogo>();
+		StringBuffer sql = new StringBuffer();
+		sql.append("{SELECT idjogo, codigo_timea, codigo_timeb, gols_timea, gols_timeb, datahora FROM jogos WHERE datahora = ? }");
+		
+		
+		PreparedStatement ps = c.prepareStatement(sql.toString());
+		ps.setString(1, datahora);
+		
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Jogo jogo = new Jogo();
+			jogo.setIdjogo(rs.getInt("idjogo"));
+			jogo.setCodigotimea(rs.getInt("codigo_timea"));
+			jogo.setCodigotimeb(rs.getInt("codigo_timeb"));
+			jogo.setGolstimea(rs.getInt("gols_timea"));
+			jogo.setGolstimeb(rs.getInt("gols_timeb"));
+			jogo.setDatahora(rs.getString("datahora"));
+			
+			listaJogos.add(jogo);
+		}
+		rs.close();
+		ps.close();
+		
+		return listaJogos;
+	}
+
 
 }
