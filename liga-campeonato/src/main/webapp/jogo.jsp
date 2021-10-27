@@ -59,9 +59,9 @@
 				</head>
 				<body>
  
-				<p>Data: <input type="text" id="datepicker" name="datepicker" value="${jogo.datahora }"></p>
+				<p>Data: <input type="text" id="datepicker" name="datepicker"></p>
 				</body>
-				</html>
+				
 				</div>
 				
 			</tr>
@@ -74,11 +74,12 @@
 					name="button"></td>
 				<td><input type="submit" value="Listar" id="button"
 					name="button"></td>
-				<td><input type="submit" value="Dividir Grupos" id="button"
-					name="button"></td>
-				<td><input type="submit" value="Tabelas" id="button"
-					name="button"></td>
+				
+			</tr>
+			<tr>
 				<td><input type="submit" value="Partidas Por Data" id="button"
+					name="button"></td>
+				<td><input type="submit" value="Gerar Partidas" id="button"
 					name="button"></td>
 			</tr>
 		</table>
@@ -112,12 +113,18 @@
 				<tbody>
 					<c:forEach var="jogo" items="${listaJogos }">
 						<tr>
-							<td>${jogo.idjogo }</td>
-							<td>${jogo.codigotimea }</td>
-							<td>${jogo.codigotimeb }</td>
-							<td>${jogo.golstimea }</td>
-							<td>${jogo.golstimeb }</td>
-							<td>${jogo.datahora }</td>
+							<td><input type="number" id="idjogo" name="idjogo"
+								placeholder="" size="10" value="${jogo.idjogo }"></td>
+							<td><input type="number" id="codigotimea" name="idjogo"
+								placeholder="" size="10" value="${jogo.codigotimea }"></td>
+							<td><input type="number" id="codigotimeb" name="idjogo"
+								placeholder="" size="10" value="${jogo.codigotimeb }"></td>
+							<td><input type="number" id="golstimea" name="idjogo"
+								placeholder="" size="10" value="${jogo.golstimea }"></td>
+							<td><input type="number" id="golstimeb" name="idjogo"
+								placeholder="" size="10" value="${jogo.golstimeb }"></td>
+							<td><input type="text" id="datahora" name="idjogo"
+								placeholder="" size="10" value="${jogo.datahora }"></td>
 						</tr>
 					</c:forEach>
 				</tbody>

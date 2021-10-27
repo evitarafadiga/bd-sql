@@ -34,6 +34,7 @@ public class GrupoServlet extends HttpServlet {
 		String saida = "";
 		String erro = "";
 		List<Grupo> listaGrupos = new ArrayList<Grupo>();
+		
 		Grupo grup = validaCampos(request, cmd);
 		
 		try {
@@ -69,6 +70,7 @@ public class GrupoServlet extends HttpServlet {
 			if (cmd.contains("Gerar Grupos")) {
 				if (grup != null) {
 					saida = gDao.generateGrupos(grup);
+					listaGrupos = gDao.selectGrupos();
 				}
 				
 			}

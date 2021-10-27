@@ -14,6 +14,7 @@
 				<td><a href = "time.jsp">Times</a></td>
 				<td><a href = "grupo.jsp">Grupos</a></td>
 				<td><a href = "jogo.jsp">Jogos</a></td>
+				<td><a href = "classificacao.jsp">Classificação</a></td>
 			</tr>		
 		</table>
 	</div>

@@ -6,9 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import model.Jogo;
@@ -106,10 +104,9 @@ public class JogoDao implements IJogoDao {
 		
 		return saida;
 	}
-
-	@Override
-	public String divideGrupos() throws SQLException {
-		String sql = "{CALL divide_grupos (?)}";
+	
+	public String geraPartidas() throws SQLException {
+		String sql = "{CALL sp_gera_partidas ? }";
 		CallableStatement cs = c.prepareCall(sql);
 		
 		cs.registerOutParameter(1, Types.VARCHAR);
@@ -124,8 +121,8 @@ public class JogoDao implements IJogoDao {
 	public List<Jogo> selectPartidaPorData(String datahora) throws SQLException {
 		List<Jogo> listaJogos = new ArrayList<Jogo>();
 		StringBuffer sql = new StringBuffer();
-		sql.append("{SELECT idjogo, codigo_timea, codigo_timeb, gols_timea, gols_timeb, datahora FROM jogos WHERE datahora = ? }");
-		
+		sql.append("SELECT idjogo, codigo_timea, codigo_timeb, gols_timea,");
+		sql.append(" gols_timeb, datahora FROM jogos WHERE datahora = ? ");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		ps.setString(1, datahora);

@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class GrupoDao implements IGrupoDao {
 		List<Grupo> listaGrupos = new ArrayList<Grupo>();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT letra, codigo_time_grupo ");
-		sql.append("FROM grupos");
+		sql.append("FROM grupos ORDER BY letra ");
 		
 		PreparedStatement ps = c.prepareStatement(sql.toString());
 		ResultSet rs = ps.executeQuery();
@@ -100,6 +99,7 @@ public class GrupoDao implements IGrupoDao {
 	public String generateGrupos(Grupo grup) throws SQLException {
 		String sql = "{CALL sp_divide_grupos (?)}";
 		CallableStatement cs = c.prepareCall(sql);
+		
 		cs.registerOutParameter(1, Types.VARCHAR);
 		
 		cs.execute();
@@ -107,6 +107,7 @@ public class GrupoDao implements IGrupoDao {
 		cs.close();
 		
 		return saida;
+		
 	}
 
 }

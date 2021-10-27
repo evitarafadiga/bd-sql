@@ -17,7 +17,7 @@
 		<tr>
 			<td><input type="submit" value="Buscar" id="button" name="button"></td>
 			
-			<td><input type="submit" value="Gerar Grupos" id="button" name="button"></td>
+			
 		</tr>
 		<tr>
 			<td colspan="4"><input type="text" id="letra" name="letra" placeholder="Chave" value="${grupo.letra }"></td>
@@ -30,6 +30,7 @@
 			<td><input type="submit" value="Atualizar" id="button" name="button"></td>
 			<td><input type="submit" value="Excluir" id="button" name="button"></td>
 			<td><input type="submit" value="Listar" id="button" name="button"></td>
+			<td><input type="submit" value="Gerar Grupos" id="button" name="button"></td>
 		</tr>
 	</table>
 	</form>
@@ -43,16 +44,14 @@
 	</div>
 	<div>
 		<c:if test="${not empty listaGrupos }">
-		
-    		<c:if test="${grup.letra=='A'}">
-    		<c:forEach var="grup" items="${listaGrupos }">
-        		<table border="1">
-			<thead>
+		<table border="1">
+		<thead>
 				<tr>
 					<th>Chave A</th>
 					<th>Código do Time</th>
 				</tr>
 			</thead>
+		<c:forEach var="grup" items="${listaGrupos }"  begin="0" end = "3">    	
 			<tbody>
 				
 					<tr>
@@ -61,19 +60,19 @@
 					</tr>
 				
 			</tbody>
-			</table> 
+			 
         		<br />
-        	</c:forEach>
-    		</c:if>
-    		<c:if test="${grup.letra=='B'}">
-    		<c:forEach var="grup" items="${listaGrupos }">
-        		<table border="1">
-			<thead>
+		</c:forEach>
+		</table>
+		
+		<table border="1">
+		<thead>
 				<tr>
 					<th>Chave B</th>
 					<th>Código do Time</th>
 				</tr>
 			</thead>
+		<c:forEach var="grup" items="${listaGrupos }"  begin="4" end = "7">    	
 			<tbody>
 				
 					<tr>
@@ -82,19 +81,19 @@
 					</tr>
 				
 			</tbody>
-			</table> 
+			 
         		<br />
-        	</c:forEach>
-    		</c:if> 
-    		<c:if test="${grup.letra=='C'}">
-    		<c:forEach var="grup" items="${listaGrupos }">
-        		<table border="1">
-			<thead>
+		</c:forEach>
+		</table>
+		
+		<table border="1">
+		<thead>
 				<tr>
-					<th>Chave C</th>
+					<th>Chave B</th>
 					<th>Código do Time</th>
 				</tr>
 			</thead>
+		<c:forEach var="grup" items="${listaGrupos }"  begin="8" end = "11">    	
 			<tbody>
 				
 					<tr>
@@ -103,20 +102,19 @@
 					</tr>
 				
 			</tbody>
-			</table> 
+			 
         		<br />
-        	</c:forEach>
-    		</c:if> 
-    		
-    		<c:if test="${grup.letra=='D'}">
-    		<c:forEach var="grup" items="${listaGrupos }">
-        		<table border="1">
-			<thead>
+		</c:forEach>
+		</table>
+		
+		<table border="1">
+		<thead>
 				<tr>
-					<th>Chave D</th>
+					<th>Chave B</th>
 					<th>Código do Time</th>
 				</tr>
 			</thead>
+		<c:forEach var="grup" items="${listaGrupos }"  begin="12" end = "15">    	
 			<tbody>
 				
 					<tr>
@@ -125,13 +123,11 @@
 					</tr>
 				
 			</tbody>
-			</table> 
+			 
         		<br />
-        	</c:forEach>
-    		</c:if>  
-	
+		</c:forEach>
+		</table>
 		</c:if>
 	</div>
-	
 </body>
 </html>

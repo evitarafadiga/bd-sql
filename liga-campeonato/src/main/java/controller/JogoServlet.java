@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,10 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Grupo;
 import model.Jogo;
 import persistence.JogoDao;
-import persistence.IGrupoDao;
 import persistence.IJogoDao;
 
 @WebServlet("/jogo")
@@ -32,13 +29,12 @@ public class JogoServlet extends HttpServlet {
 		}
     }
 
-	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getParameter("button");
 		String saida = "";
 		String erro = "";
 		List<Jogo> listaJogos = new ArrayList<Jogo>();
-		List<Jogo> listaTabelas = new ArrayList<Jogo>();
+		
 		Jogo jogo = validaCampos(request, cmd);
 		
 		try {
@@ -70,16 +66,11 @@ public class JogoServlet extends HttpServlet {
 					listaJogos = jDao.selectJogos();
 				}
 			}
-			if (cmd.contains("Dividir Grupos")) {
+			if (cmd.contains("Gerar Partidas")) {
 				if (jogo != null) {
-					saida = jDao.divideGrupos();
+					saida = jDao.geraPartidas();
 				}
-			}/*
-			if (cmd.contains("Tabelas")) {
-				if (jogo != null) {
-					listaTabelas = jDao.selectJogos();
-				}
-			}*/
+			}
 			if (cmd.contains("Partidas Por Data")) {
 				if (jogo != null) {
 					listaJogos = jDao.selectPartidaPorData(request.getParameter("datepicker"));

@@ -138,10 +138,13 @@ GO
 CREATE PROCEDURE sp_iud_jogo (@cod CHAR(1), @idjogo INT, 
 	@codigo_timea INT, @codigo_timeb INT, @gols_timea INT, @gols_timeb INT, @datahora VARCHAR(10), @saida VARCHAR(50) OUTPUT)
 AS
+	
 	IF (UPPER(@cod) = 'I')
 	BEGIN
+		SET IDENTITY_INSERT jogos ON;
+		
 		INSERT INTO jogos VALUES
-		(@idjogo, @codigo_timea, @codigo_timeb, @gols_timea, @gols_timeb, @datahora)
+		(@codigo_timea, @codigo_timeb, @gols_timea, @gols_timeb, @datahora)
 		SET @saida = 'Jogo inserido com sucesso'
 	END
 	ELSE
@@ -166,18 +169,43 @@ AS
 				RAISERROR('Codigo invalido', 16, 1)
 			END
 		END
+		SET IDENTITY_INSERT dbo.jogos OFF;
 	END
---INSERT INTO jogos VALUES (1001, 1, 14, 3, 6, '27-09-2021');
 
-CREATE PROCEDURE mostra_score (@codigo_time INT, @nome_time INT, @pontos INT) AS
-SELECT codigo_time, nome_time,
-SUM(IIF(codigo_time = codigo_timea AND gols_timea > gols_timeb, 3, 0)) +
-SUM(IIF(codigo_time = codigo_timeb AND gols_timeb > gols_timea, 3, 0)) +
-SUM(IIF(codigo_time = codigo_timea AND gols_timea = gols_timeb, 1, 0)) +
-SUM(IIF(codigo_time = codigo_timeb AND gols_timea = gols_timeb, 1, 0)) AS pontos
-FROM times JOIN jogos ON times.codigo_time = jogos.codigo_timea OR times.codigo_time = jogos.codigo_timeb
-GROUP BY codigo_time, nome_time
-ORDER BY pontos DESC, codigo_time ASC
+--INSERT INTO jogos VALUES (1001, 1, 14, 3, 6, '27-09-2021');
+--DROP FUNCTION fn_classificacao
+
+GO
+CREATE FUNCTION fn_classificacao (@letra VARCHAR)
+RETURNS TABLE RETURN (
+    SELECT nome_time,
+    COUNT(1) AS partidas,
+    SUM(IIF(codigo_timea = codigo_time_grupo, IIF(gols_timea > gols_timeb, 1, 0), IIF(gols_timeb > gols_timea, 1, 0))) AS vitorias,
+    SUM(IIF(codigo_timea = codigo_time_grupo, IIF(gols_timea = gols_timeb, 1, 0), IIF(gols_timeb = gols_timea, 1, 0))) AS empates,
+    SUM(IIF(codigo_timea = codigo_time_grupo, IIF(gols_timea < gols_timeb, 1, 0), IIF(gols_timeb < gols_timea, 1, 0))) AS derrotas,
+    SUM(IIF(codigo_timea = codigo_time_grupo, gols_timea, gols_timeb)) AS gols_marcados,
+    SUM(IIF(codigo_timea = codigo_time_grupo, gols_timeb, gols_timea)) AS gols_sofridos,
+    SUM(IIF(codigo_timea = codigo_time_grupo, gols_timea - gols_timeb, gols_timeb - gols_timea)) AS saldo_gols,
+    SUM(CASE
+        WHEN (codigo_timea = codigo_time_grupo AND gols_timea > gols_timeb) OR (codigo_timeb = codigo_time_grupo AND gols_timeb > gols_timea) THEN 3
+        WHEN gols_timea = gols_timeb THEN 1
+    END) AS pontos
+    FROM jogos, times, grupos
+    WHERE (codigo_timea = codigo_time_grupo OR codigo_timeb = codigo_time_grupo)
+        AND times.codigo_time = codigo_time_grupo
+        AND letra = @letra
+    GROUP BY nome_time
+)
+GO
+SELECT * FROM dbo.fn_classificacao('A')
+UNION ALL
+SELECT * FROM dbo.fn_classificacao('B')
+UNION ALL
+SELECT * FROM dbo.fn_classificacao('C')
+UNION ALL
+SELECT * FROM dbo.fn_classificacao('D')
+ORDER BY pontos DESC, vitorias DESC, gols_marcados DESC, saldo_gols DESC
+
 
 --FLOOR(RAND()*(4-1+1))+1
 
@@ -209,19 +237,19 @@ PRINT @saida;
 SET @i -= 1;
 END
 
-
-DROP PROCEDURE sp_divide_grupos
-
 --___________________________________________________________________________________________
+DROP PROCEDURE sp_divide_grupos
 */
 
-CREATE PROCEDURE sp_divide_grupos (@saida VARCHAR(100) OUTPUT)
+CREATE PROCEDURE sp_divide_grupos (@saida VARCHAR(50) OUTPUT)
 AS
-	BEGIN
-		DELETE FROM grupos
+	DISABLE TRIGGER block_insupdel_grupos ON grupos
 	
+	BEGIN
+		  
+		DELETE FROM grupos
 INSERT INTO grupos (codigo_time_grupo, letra)
-SELECT codigo_time, CHAR((65/*A*/ + (ROW_NUMBER() OVER (ORDER BY NEWID()) - 1) / 3)) letra
+SELECT codigo_time, CHAR((65/*A na tabela ASCII*/ + (ROW_NUMBER() OVER (ORDER BY NEWID()) - 1) / 3)) letra
 FROM times
 WHERE NOT (codigo_time =  3 OR codigo_time = 10 OR codigo_time = 13 OR codigo_time = 16)
 UNION
@@ -251,9 +279,15 @@ CREATE PROCEDURE sp_prox_dia @weekday INTEGER, @time DATE = null OUTPUT AS BEGIN
 	SET @time = DATEADD(DAY, @add, @time)
 END
 
+--DROP PROCEDURE sp_gera_partidas
 
-DELETE FROM jogos
-DBCC CHECKIDENT('jogos', RESEED, 1)
+CREATE PROCEDURE sp_gera_partidas (@saida VARCHAR(100) OUTPUT)
+AS
+		DISABLE TRIGGER block_insdel_jogos ON jogos
+		
+ BEGIN
+		DELETE FROM jogos
+		DBCC CHECKIDENT('jogos', RESEED, 1)
 
 DECLARE @times TABLE(
 	num INT IDENTITY PRIMARY KEY,
@@ -319,6 +353,11 @@ WHILE (@i < 4) BEGIN
 END
 SELECT * FROM jogos
 
+END
+
+--________________________________________________________________________________ TRIGGERS
+
+
 CREATE TRIGGER block_insupdel_times ON times AFTER UPDATE, INSERT, DELETE
 AS	
 	BEGIN
@@ -333,7 +372,7 @@ AS
     RAISERROR('Inserção não permitida', 16, 1)
 	END
 
-CREATE TRIGGER block_insupdel_jogos ON jogos AFTER UPDATE, INSERT, DELETE
+CREATE TRIGGER block_insdel_jogos ON jogos AFTER INSERT, DELETE
 AS 
 	BEGIN
 	ROLLBACK TRANSACTION
