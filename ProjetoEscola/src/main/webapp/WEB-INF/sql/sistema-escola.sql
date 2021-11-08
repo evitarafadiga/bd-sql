@@ -45,3 +45,15 @@ PRIMARY KEY (ra_aluno, codigo_disciplina, codigo_avaliacao),
 FOREIGN KEY (codigo_avaliacao) REFERENCES avaliacao(codigo),
 FOREIGN KEY (codigo_disciplina) REFERENCES disciplinas(codigo),
 FOREIGN KEY (ra_aluno) REFERENCES aluno(ra));
+
+SELECT a.ra, CONVERT(CHAR(10), f.dataf, 103) AS dt_, d.codigo, f.presenca
+	FROM faltas f, aluno a, disciplinas d
+	WHERE	a.ra = f.ra_aluno
+	AND		d.codigo = f.codigo_disciplina
+
+
+SELECT a.ra, d.codigo AS disciplina_cod, av.codigo AS avaliacao_cod, n.nota
+	FROM aluno a, disciplinas d, avaliacao av, notas n
+	WHERE	a.ra = n.ra_aluno
+	AND		d.codigo = n.codigo_disciplina
+	AND		av.codigo = n.codigo_avaliacao
