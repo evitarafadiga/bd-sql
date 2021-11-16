@@ -1,25 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Relatórios</title>
+<meta charset="ISO-8859-1">
+<title>Reserva</title>
 </head>
 <body>
-	<div align="center">
-		<form action="relatorio" method="post" target="_blank">
-			<table>
-				<tr>
-					<td><input type="text" name="empresa"
-							placeholder="EMPRESA">
-					</td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="Gerar">
-					</td>
-				</tr>
-			</table>
-		</form>
+	<div>
+		<jsp:include page="menu.jsp" />
 	</div>
 </body>
 </html>

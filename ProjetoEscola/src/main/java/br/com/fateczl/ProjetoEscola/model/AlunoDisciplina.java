@@ -2,7 +2,7 @@ package br.com.fateczl.ProjetoEscola.model;
 
 import java.sql.Date;
 
-public class Faltas {
+public class AlunoDisciplina {
 	
 	private Aluno aluno;
 	private Disciplina disciplina;

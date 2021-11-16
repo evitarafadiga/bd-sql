@@ -7,6 +7,9 @@
 <title>Chamada</title>
 </head>
 <body>
-
+	<div>
+		<jsp:include page="menu.jsp" />
+		<br />
+	</div>
 </body>
 </html>

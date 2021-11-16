@@ -27,7 +27,7 @@ ra_aluno			VARCHAR(14)			NOT NULL,
 codigo_disciplina	INT					NOT NULL,
 dataf				DATE				NOT NULL,
 presenca			VARCHAR(1)			NOT NULL,
-PRIMARY KEY (ra_aluno, codigo_disciplina, dataf),
+PRIMARY KEY (ra_aluno),
 FOREIGN KEY (codigo_disciplina) REFERENCES disciplinas(codigo),
 FOREIGN KEY (ra_aluno) REFERENCES aluno(ra));
 
@@ -41,7 +41,7 @@ ra_aluno			VARCHAR(14)			NOT NULL,
 codigo_disciplina	INT					NOT NULL,
 codigo_avaliacao	INT					NOT NULL,
 nota				DECIMAL(2,1)		NOT NULL,
-PRIMARY KEY (ra_aluno, codigo_disciplina, codigo_avaliacao),
+PRIMARY KEY (ra_aluno),
 FOREIGN KEY (codigo_avaliacao) REFERENCES avaliacao(codigo),
 FOREIGN KEY (codigo_disciplina) REFERENCES disciplinas(codigo),
 FOREIGN KEY (ra_aluno) REFERENCES aluno(ra));

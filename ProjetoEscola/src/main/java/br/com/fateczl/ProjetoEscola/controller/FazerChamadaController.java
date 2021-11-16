@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fateczl.ProjetoEscola.model.Aluno;
-import br.com.fateczl.ProjetoEscola.model.Faltas;
+import br.com.fateczl.ProjetoEscola.model.AlunoDisciplina;
 import br.com.fateczl.ProjetoEscola.persistence.AlunoDao;
+import br.com.fateczl.ProjetoEscola.persistence.AlunoDisciplinaDao;
 import br.com.fateczl.ProjetoEscola.persistence.DisciplinaDao;
-import br.com.fateczl.ProjetoEscola.persistence.FaltaDao;
 
 @Controller
 public class FazerChamadaController {
@@ -31,7 +31,7 @@ public class FazerChamadaController {
 	DisciplinaDao dDao;
 	
 	@Autowired
-	FaltaDao fDao; //
+	AlunoDisciplinaDao adDao; //
 	
 	//GET
 	@RequestMapping(name = "chamada", value = "/chamada", method = RequestMethod.GET)
@@ -53,12 +53,12 @@ public class FazerChamadaController {
 	@RequestMapping(name = "chamada", value = "/chamada", method = RequestMethod.POST)
 	public ModelAndView op(@RequestParam Map<String, String> allRequestParam, 
 			ModelMap model) {
-		Faltas f = new Faltas();
+		AlunoDisciplina ad = new AlunoDisciplina();
 		List<Aluno> listaAlunos = new ArrayList<Aluno>();
 		for (String key : allRequestParam.keySet()) {
 			if (key.equals("ra")) {
-				f.setPresenca('P');
-				f.setDataf(Date.valueOf(LocalDate.now()));
+				ad.setPresenca('P');
+				ad.setDataf(Date.valueOf(LocalDate.now()));
 			} else {
 				try {
 					if (!allRequestParam.get(key).equals("")) {
@@ -66,24 +66,24 @@ public class FazerChamadaController {
 						
 						Aluno a = new Aluno();
 						
-						Faltas fa = new Faltas();
-						fa.setAluno(a);
+						AlunoDisciplina ad2 = new AlunoDisciplina();
+						ad2.setAluno(a);
 						//fa.setDisciplina();
-						fa.setDataf(Date.valueOf(LocalDate.now()));
-						fa.setPresenca('P');
+						ad2.setDataf(Date.valueOf(LocalDate.now()));
+						ad2.setPresenca('P');
 					}
 					
 				} catch (NumberFormatException e) {}
 			}
 		}
 		try {
-			fDao.insereFalta(f);
+			adDao.insereFalta(ad);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			
 		}
-		
+		return new ModelAndView("chamada");
 	}
 
 }
