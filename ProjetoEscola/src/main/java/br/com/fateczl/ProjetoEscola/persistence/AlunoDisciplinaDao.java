@@ -26,7 +26,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setString(1, ad.getAluno().getRa());
 		ps.setInt(2, ad.getDisciplina().getCodigo());
-		ps.setDate(3, ad.getDataf());
+		ps.setString(3, ad.getDataf());
 		ps.setString(4, String.valueOf(ad.getPresenca()));
 		ps.execute();
 		ps.close();
@@ -38,7 +38,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 	public List<AlunoDisciplina> listaFaltas(AlunoDisciplina ad) throws SQLException, ClassNotFoundException {
 		Connection c = gDao.getConnection();
 		List<AlunoDisciplina> lista = new ArrayList<AlunoDisciplina>();
-		String sql = "SELECT a.ra, CONVERT(CHAR(10), f.dataf, 103) AS dt_, d.codigo, f.presenca	FROM faltas f, aluno a, disciplinas d WHERE	a.ra = f.ra_aluno AND d.codigo = ? ";
+		String sql = "SELECT d.codigo, d.nome, d.sigla, d.num_aulas, a.ra, a.nome, CONVERT(CHAR(10), f.dataf, 103) AS dataf, f.presenca FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND f.codigo_disciplina = ? ";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, ad.getDisciplina().getCodigo());
 		ResultSet rs = ps.executeQuery();
@@ -56,7 +56,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 			AlunoDisciplina ad2 = new AlunoDisciplina();
 			ad2.setDisciplina(d);
 			ad2.setAluno(a);
-			ad2.setDataf(rs.getDate("dataf"));
+			ad2.setDataf(rs.getString("dataf"));
 			ad2.setPresenca(rs.getString("presenca").charAt(0));
 			
 			lista.add(ad2);

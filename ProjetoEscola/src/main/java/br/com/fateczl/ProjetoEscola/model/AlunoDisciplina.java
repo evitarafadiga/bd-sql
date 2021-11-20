@@ -1,12 +1,10 @@
 package br.com.fateczl.ProjetoEscola.model;
 
-import java.sql.Date;
-
 public class AlunoDisciplina {
 	
 	private Aluno aluno;
 	private Disciplina disciplina;
-	private Date dataf;
+	private String dataf;
 	private char presenca;
 	
 	public Aluno getAluno() {
@@ -21,10 +19,10 @@ public class AlunoDisciplina {
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
-	public Date getDataf() {
+	public String getDataf() {
 		return dataf;
 	}
-	public void setDataf(Date dataf) {
+	public void setDataf(String dataf) {
 		this.dataf = dataf;
 	}
 	public char getPresenca() {

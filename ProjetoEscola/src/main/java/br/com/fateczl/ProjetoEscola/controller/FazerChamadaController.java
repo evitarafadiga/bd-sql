@@ -1,6 +1,5 @@
 package br.com.fateczl.ProjetoEscola.controller;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class FazerChamadaController {
 		for (String key : allRequestParam.keySet()) {
 			if (key.equals("ra")) {
 				ad.setPresenca('P');
-				ad.setDataf(Date.valueOf(LocalDate.now()));
+				ad.setDataf(String.valueOf(LocalDate.now()));
 			} else {
 				try {
 					if (!allRequestParam.get(key).equals("")) {
@@ -69,7 +68,7 @@ public class FazerChamadaController {
 						AlunoDisciplina ad2 = new AlunoDisciplina();
 						ad2.setAluno(a);
 						//fa.setDisciplina();
-						ad2.setDataf(Date.valueOf(LocalDate.now()));
+						ad2.setDataf(String.valueOf(LocalDate.now()));
 						ad2.setPresenca('P');
 					}
 					

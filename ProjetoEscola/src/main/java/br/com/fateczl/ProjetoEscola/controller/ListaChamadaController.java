@@ -32,7 +32,7 @@ public class ListaChamadaController {
 	public ModelAndView op(@RequestParam Map<String, String> allRequestParam,
 			ModelMap model) {
 		List<AlunoDisciplina> listaAlunoDisciplina = new ArrayList<AlunoDisciplina>();
-		int codigoDisciplina = Integer.parseInt(allRequestParam.get("codigo"));
+		int codigoDisciplina = Integer.parseInt(allRequestParam.get("codigoDisciplina"));
 		String erro = "";
 		
 		Disciplina d = new Disciplina();
