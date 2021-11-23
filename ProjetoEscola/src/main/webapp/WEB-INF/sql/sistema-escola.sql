@@ -12,13 +12,14 @@ GO
 
 CREATE TABLE aluno (
 ra			VARCHAR(14)			NOT NULL,
-nome		VARCHAR(200)		NOT NULL,
+nome_a		VARCHAR(200)		NOT NULL,
 PRIMARY KEY (ra));
 
 CREATE TABLE disciplinas (
 codigo				INT							NOT NULL,
-nome				VARCHAR(200)				NOT NULL,
-sigla				CHAR(1)						NOT NULL,
+nome_d				VARCHAR(200)				NOT NULL,
+sigla				VARCHAR(3)					NOT NULL,
+turno				CHAR(1)						NOT NULL,
 num_aulas			INT							NOT NULL,
 PRIMARY KEY (codigo));
 
@@ -52,14 +53,14 @@ INSERT INTO aluno VALUES
 ('1110481822036','Beltrano de Souza');
 
 INSERT INTO disciplinas VALUES
-('4203010','Arquitetura e Organiza��o de Computadores','T',80),
-('4203020','Arquitetura e Organiza��o de Computadores','N',80),
-('4208010','Laborat�rio de Hardware','T',40),
-('4226004','Banco de Dados','T',80),
-('4213003','Sistemas Operacionais I','T',80),
-('4213013','Sistemas Operacionais I','N',80),
-('4233005','Laborat�rio de Banco de Dados','T',80),
-('5005220','M�todos Para a Produ��o do Conhecimento','T',40);
+('4203010','Arquitetura e Organiza��o de Computadores','AOC','T',80),
+('4203020','Arquitetura e Organiza��o de Computadores','AOC','N',80),
+('4208010','Laborat�rio de Hardware','LHW','T',40),
+('4226004','Banco de Dados','BDO','T',80),
+('4213003','Sistemas Operacionais I','SOI','T',80),
+('4213013','Sistemas Operacionais I','SOI','N',80),
+('4233005','Laborat�rio de Banco de Dados','LBD','T',80),
+('5005220','M�todos Para a Produ��o do Conhecimento','MPC','T',40);
 
 INSERT INTO faltas VALUES
 ('1110481822034','4203010','2021-11-17','P'),
@@ -84,6 +85,10 @@ SELECT a.ra, d.codigo AS disciplina_cod, av.codigo AS avaliacao_cod, n.nota
 	AND		d.codigo = n.codigo_disciplina
 	AND		av.codigo = n.codigo_avaliacao
 
-SELECT d.codigo, d.nome,d.sigla, d.num_aulas, a.ra, a.nome, CONVERT(CHAR(10), f.dataf, 103) AS data_, f.presenca FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND f.codigo_disciplina = 4203010
+SELECT d.codigo, d.nome_d,d.sigla,d.turno, d.num_aulas, a.ra, a.nome_a, CONVERT(CHAR(10), f.dataf, 103) AS data_, f.presenca FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND f.codigo_disciplina = 4203010
 
-SELECT d.codigo, d.nome,d.sigla, d.num_aulas, a.ra, a.nome, CONVERT(CHAR(10), f.dataf, 103) AS dataf, f.presenca FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND f.codigo_disciplina = 4203010
+SELECT d.codigo, d.nome_d,d.sigla, d.num_aulas, a.ra, a.nome_a, CONVERT(CHAR(10), f.dataf, 103) AS dataf, f.presenca FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND f.codigo_disciplina = 4203010
+
+SELECT * FROM faltas
+
+SELECT * FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND f.dataf = '2021-11-17' AND f.codigo_disciplina = '4203010'

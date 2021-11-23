@@ -39,19 +39,20 @@ public class NotasDao implements INotasDao{
 	public List<Notas> listaNotas(Notas n) throws SQLException, ClassNotFoundException {
 		Connection c = gDao.getConnection();
 		List<Notas> lista = new ArrayList<Notas>();
-		String sql = "SELECT a.ra, d.codigo AS disciplina_cod, av.codigo AS avaliacao_cod, n.nota FROM aluno a, disciplinas d, avaliacao av, notas n WHERE a.ra = n.ra_aluno AND d.codigo = n.codigo_disciplina AND	av.codigo = n.codigo_avaliacao ";
+		String sql = "SELECT a.ra, d.codigo AS disciplina_cod, av.codigo AS avaliacao_cod, n.nota FROM aluno a, disciplinas d, avaliacao av, notas n WHERE a.ra = n.ra_aluno AND d.codigo = n.codigo_disciplina AND	av.codigo = n.codigo_avaliacao AND n.ra_aluno = ? ";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setString(1, n.getAluno().getRa());
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			Aluno a = new Aluno();
 			a.setRa(rs.getString("ra"));
-			a.setNome(rs.getString("nome"));
+			a.setNome_a(rs.getString("nome_a"));
 			
 			Disciplina d = new Disciplina();
 			d.setCodigo(rs.getInt("codigo"));
-			d.setNome(rs.getString("nome"));
-			d.setSigla(rs.getString("sigla").charAt(0));
+			d.setNome_d(rs.getString("nome_d"));
+			d.setSigla(rs.getString("sigla"));
+			d.setTurno(rs.getString("turno").charAt(0));
 			d.setNum_aulas(rs.getInt("num_aulas"));
 			
 			Avaliacao av = new Avaliacao();

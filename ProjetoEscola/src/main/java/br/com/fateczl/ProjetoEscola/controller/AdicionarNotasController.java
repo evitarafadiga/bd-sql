@@ -16,14 +16,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fateczl.ProjetoEscola.model.Aluno;
 import br.com.fateczl.ProjetoEscola.model.AlunoDisciplina;
+import br.com.fateczl.ProjetoEscola.model.Avaliacao;
 import br.com.fateczl.ProjetoEscola.model.Disciplina;
+import br.com.fateczl.ProjetoEscola.model.Notas;
 import br.com.fateczl.ProjetoEscola.persistence.AlunoDao;
 import br.com.fateczl.ProjetoEscola.persistence.AlunoDisciplinaDao;
 import br.com.fateczl.ProjetoEscola.persistence.DisciplinaDao;
+import br.com.fateczl.ProjetoEscola.persistence.NotasDao;
 
 @Controller
-public class FazerChamadaController {
-	
+public class AdicionarNotasController {
+
 	@Autowired
 	AlunoDao aDao;
 	
@@ -31,68 +34,66 @@ public class FazerChamadaController {
 	DisciplinaDao dDao;
 	
 	@Autowired
+	NotasDao nDao;
+	
+	@Autowired
 	AlunoDisciplinaDao adDao; //
 	
 	//GET
-	@RequestMapping(name = "chamada", value = "/chamada", method = RequestMethod.GET)
+	@RequestMapping(name = "notas", value = "/notas", method = RequestMethod.GET)
 	public ModelAndView init(ModelMap model) {
-		List<Aluno> listaAlunos = new ArrayList<Aluno>();
-		List<AlunoDisciplina> listaAlunoDisciplina = new ArrayList<AlunoDisciplina>();
-		
+		List<Notas> listaNotas = new ArrayList<Notas>();
+		Notas n = new Notas();
 		String erro = "";
 		try {
-			listaAlunos = aDao.listaAlunos();
-			listaAlunoDisciplina = adDao.listaDeFaltas();
+			listaNotas = nDao.listaNotas(n);
 		} catch (ClassNotFoundException | SQLException e) {
 			erro = e.getMessage();
 		} finally {
-			model.addAttribute("listaAlunoDisciplina", listaAlunoDisciplina);
-			model.addAttribute("listaAlunos", listaAlunos);
+			model.addAttribute("listaNotas", listaNotas);
 			model.addAttribute("erro", erro);
 		}
 		return new ModelAndView("chamada");
 	}
 	
 	//POST
-	@RequestMapping(name = "chamada", value = "/chamada", method = RequestMethod.POST)
+	@RequestMapping(name = "notas", value = "/notas", method = RequestMethod.POST)
 	public ModelAndView op(@RequestParam Map<String, String> allRequestParam, 
 			ModelMap model) {
-		Disciplina d = new Disciplina();
+		Avaliacao av = new Avaliacao();
+		Notas n = new Notas();
 		AlunoDisciplina ad = new AlunoDisciplina();
 		List<AlunoDisciplina> listaAlunoDisciplina = new ArrayList<AlunoDisciplina>();
 		
 		for (String key : allRequestParam.keySet()) {
-				if (key.equals("codigoDisciplina")) {
-					if (key.equals("dataf")) {
-
-						d.setCodigo(Integer.parseInt(allRequestParam.get(key)));
-						d.setNum_aulas(Integer.parseInt(allRequestParam.get(key)));
-						ad.setDisciplina(d);
-						ad.setPresenca('P');
-						ad.setDataf(allRequestParam.get(key));
-					} else {
-						try {
-							if (!allRequestParam.get(key).equals("")) {
-								int numericKey = Integer.parseInt(key);
-								
-								d.setCodigo(numericKey);
-								d.setNum_aulas(Integer.parseInt(allRequestParam.get(key)));
-								
-								AlunoDisciplina ad2 = new AlunoDisciplina();
-								ad2.setDisciplina(d);
-								ad2.setDataf(LocalDate.now().toString());
-								ad2.setPresenca('F');
-								listaAlunoDisciplina.add(ad2);
-							}
+				if (key.equals("codigoAvaliacao")) {
+					
+					av.setCodigo(Integer.parseInt(allRequestParam.get(key)));
+					
+					ad.setPresenca('P');
+					ad.setDataf("datepicker");
+					ad.setDataf(String.valueOf(LocalDate.now()));
+				} else {
+					try {
+						if (!allRequestParam.get(key).equals("")) {
+							int numericKey = Integer.parseInt(key);
 							
-						} catch (NumberFormatException e) {}
-					}
+							av.setCodigo(numericKey);
+							
+							AlunoDisciplina ad2 = new AlunoDisciplina();
+							//ad2.setDisciplina(d);
+							ad2.setDataf(String.valueOf(LocalDate.now()));
+							ad2.setPresenca('F');
+							listaAlunoDisciplina.add(ad2);
+						}
+						
+					} catch (NumberFormatException e) {}
 				
 			}
 			
 		}
 		try {
-			dDao.insereDisciplina(d);
+			nDao.insereNota(n);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		} 
@@ -109,7 +110,7 @@ public class FazerChamadaController {
 		String erro = "";
 		try {
 			listaAlunos = aDao.listaAlunos();
-			listaAlunoDisciplina = adDao.listaFaltaPorDisciplina(ad);
+			listaAlunoDisciplina = adDao.listaFaltas(ad);
 		} catch (ClassNotFoundException | SQLException e) {
 			erro = e.getMessage();
 		} finally {
@@ -120,5 +121,6 @@ public class FazerChamadaController {
 		
 		return new ModelAndView("chamada");
 	}
+
 
 }

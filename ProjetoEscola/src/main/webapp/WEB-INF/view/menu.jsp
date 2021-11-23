@@ -10,6 +10,7 @@
 	<div align="center">
 		<table style="border: 1px solid black">
 			<tr>
+				<td style="border: 1px solid black"><a href = "notas">Notas</a></td>
 				<td style="border: 1px solid black"><a href = "chamada">Chamada</a></td>
 				<td style="border: 1px solid black"><a href = "lista">Lista</a></td>
 			<tr>	

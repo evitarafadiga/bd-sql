@@ -13,35 +13,40 @@
 		<br />
 	</div>
 	<div>
-		<form action="lista" method="post">
+			<form action="lista" method="post">
+			
 			<table>
-			<tr>
-				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Codigo Disciplina"></td>
-			</tr>
-			<tr>
+			 <tr>
+				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Codigo Disciplina"></td>			
 				<td colspan="1"><input type="submit" value="Buscar" id="button" name="button"></td>
 			</tr>			
 			</table>
+	
 			<br /><br />
-			
 			<c:if test="${not empty listaAlunoDisciplina }">
 			<table border="1">
 				<thead>
 					<tr>
-						<th>RA</th>
-						<th>Aluno</th>
 						<th>Cód. Disciplina</th>
 						<th>Disciplina</th>
+						<th>Sigla</th>
+						<th>Turno</th>
+						<th>N. de Aulas</th>
+						<th>RA</th>
+						<th>Aluno</th>
 						<th>Data</th>
 						<th>Presenca</th>
 					</tr>
 				</thead>
 				<c:forEach var="ad" items="${listaAlunoDisciplina }">
 				<tr>
-					<td><c:out value="${ad.aluno.ra }" /></td>
-					<td><c:out value="${ad.aluno.nome }" /></td>
 					<td><c:out value="${ad.disciplina.codigo }" /></td>
-					<td><c:out value="${ad.disciplina.nome }" /></td>
+					<td><c:out value="${ad.disciplina.nome_d }" /></td>
+					<td><c:out value="${ad.disciplina.sigla }" /></td>
+					<td><c:out value="${ad.disciplina.turno }" /></td>
+					<td><c:out value="${ad.disciplina.num_aulas }" /></td>
+					<td><c:out value="${ad.aluno.ra }" /></td>
+					<td><c:out value="${ad.aluno.nome_a }" /></td>
 					<td><c:out value="${ad.dataf }" /></td>
 					<td><c:out value="${ad.presenca }" /></td>
 				</tr>
