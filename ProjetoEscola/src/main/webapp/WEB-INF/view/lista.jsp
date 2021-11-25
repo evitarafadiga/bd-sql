@@ -17,7 +17,7 @@
 			
 			<table>
 			 <tr>
-				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Codigo Disciplina"></td>			
+				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Codigo Disciplina" required></td>			
 				<td colspan="1"><input type="submit" value="Buscar" id="button" name="button"></td>
 			</tr>			
 			</table>
@@ -35,7 +35,7 @@
 						<th>RA</th>
 						<th>Aluno</th>
 						<th>Data</th>
-						<th>Presenca</th>
+						<th>Presencas</th>
 					</tr>
 				</thead>
 				<c:forEach var="ad" items="${listaAlunoDisciplina }">

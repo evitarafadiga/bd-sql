@@ -137,5 +137,38 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 		
 		return lista;		
 	}
+	
+	public List<AlunoDisciplina> listaAlunos() throws SQLException, ClassNotFoundException {
+		Connection c = gDao.getConnection();
+		List<AlunoDisciplina> lista = new ArrayList<AlunoDisciplina>();
+		String sql = "SELECT * FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina  ";
+		PreparedStatement ps = c.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Disciplina d = new Disciplina();
+			d.setCodigo(rs.getInt("codigo"));
+			d.setNome_d(rs.getString("nome_d"));
+			d.setSigla(rs.getString("sigla"));
+			d.setTurno(rs.getString(String.valueOf("turno")).charAt(0));
+			d.setNum_aulas(rs.getInt("num_aulas"));
+			
+			Aluno a = new Aluno();
+			a.setRa(rs.getString("ra"));
+			a.setNome_a(rs.getString("nome_a"));
+			
+			AlunoDisciplina ad2 = new AlunoDisciplina();
+			ad2.setDisciplina(d);
+			ad2.setAluno(a);
+			ad2.setDataf(rs.getString("dataf"));
+			ad2.setPresenca(rs.getString("presenca").charAt(0));
+			
+			lista.add(ad2);
+		}
+		rs.close();
+		ps.close();
+		c.close();
+		
+		return lista;	
+	}
 
 }

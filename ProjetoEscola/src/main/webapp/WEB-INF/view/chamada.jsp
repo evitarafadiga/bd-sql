@@ -15,16 +15,6 @@
 	<div>
 		
 		<form action="chamada" method="post">
-		
-			<table>
-			 <tr>
-				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Codigo Disciplina"></td>			
-				<%-- <td colspan="1"><input type="submit" value="Buscar" id="button" name="button"></td> --%>
-			</tr>			
-			</table>
-	
-			<br /><br />
-			
 			<table>
 			<tr>
 				<td colspan="4">
@@ -49,27 +39,46 @@
 				</head>
 				<body>
  
-				<p>Data: <input type="text" id="datepicker" name="datepicker"></p>
+				<p>Data: <input type="text" id="datepicker" name="datepicker" required></p>
       			
 				</body>
-				
 				</div>
-					
+				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Codigo Disciplina" required></td>		
+				
+				<td colspan="1"><input type="submit" value="Buscar" id="button" name="button"></td>
 			</tr>
 			</table>
-				<c:if test="${not empty listaAlunoDisciplina }">
+	
+			<br /><br />
+				
+				<h1>Alunos matriculados</h1>
+				<c:if test="${not empty listaAlunos }">
 				
 				<table>
-				<c:forEach items="${listaAlunoDisciplina }" var="ad">
+				<c:forEach items="${listaAlunos }" var="a">
 				<tr>
-					<td><c:out value="${ad.aluno.ra }" /></td>
-					<td><c:out value="${ad.aluno.nome_a }" /></td>
-					<td><c:out value="${ad.disciplina.sigla }" /></td>
-					<%-- <td><input type="number" id=${p.id } name=${p.id } min="0" size="5"></td> --%>
-					<td><input type="number" id="num_aulas" name="num_aulas" min="0" value="4" placeholder="4"></td>
+					<td><input type="text" value="${a.ra }" readonly /></td>
+					<td><c:out value="${a.nome_a }" /></td>
+					<td><input type="text" id="presenca" name="${a.ra }" min="0" max="4" value="4" placeholder="4"></td>
 				</tr>
 				</c:forEach>
-
+				<tr>
+					 <td colspan="4"><input type="submit" value="Finalizar Chamada" id="button" name="button"></td> 
+				</tr>
+				</table>
+				</c:if>
+				<br /><br />
+				<c:if test="${not empty listaAlunoDisciplina }">
+				<table>
+		
+				<c:forEach items="${listaAlunoDisciplina }" var="ad">
+				<tr>
+					<td><input type="text" value="${ad.aluno.ra }" name="${ad.aluno.ra }" readonly /></td>
+					<td><c:out value="${ad.aluno.nome_a }" /></td>
+					<td><c:out value="${ad.disciplina.sigla }" /></td>
+					<td><input type="text" id="presenca" name="presenca" min="0" max="4" value="4" placeholder="4"></td>
+				</tr>
+				</c:forEach>
 				<tr>
 					<td colspan="4"><input type="submit" value="Finalizar Chamada" id="button" name="button"></td>
 				</tr>
@@ -77,23 +86,7 @@
 				</c:if>
 				
 			<br /><br />
-				<h2>Alunos matriculados</h2>
-				<c:if test="${not empty listaAlunos }">
 				
-				<table>
-				<c:forEach items="${listaAlunos }" var="a">
-				<tr>
-					<td><c:out value="${a.ra }" /></td>
-					<td><c:out value="${a.nome_a }" /></td>
-					<td><c:out value="${ad.disciplina.sigla }" /></td>
-					<td></td>
-				</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="4"><input type="submit" value="Finalizar Chamada" id="button" name="button"></td>
-				</tr>
-				</table>
-				</c:if>
 			</form>
 			
 			

@@ -62,10 +62,4 @@ public class DisciplinaDao implements IDisciplinaDao {
 		
 	}
 
-	@Override
-	public void insereDisciplina(Disciplina d) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

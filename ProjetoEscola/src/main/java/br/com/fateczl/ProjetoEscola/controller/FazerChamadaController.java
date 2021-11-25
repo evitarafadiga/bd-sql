@@ -23,17 +23,17 @@ import br.com.fateczl.ProjetoEscola.persistence.DisciplinaDao;
 
 @Controller
 public class FazerChamadaController {
-	
+
 	@Autowired
 	AlunoDao aDao;
-	
+
 	@Autowired
 	DisciplinaDao dDao;
-	
+
 	@Autowired
 	AlunoDisciplinaDao adDao; //
-	
-	//GET
+
+	// GET
 	@RequestMapping(name = "chamada", value = "/chamada", method = RequestMethod.GET)
 	public ModelAndView init(ModelMap model) {
 		List<Aluno> listaAlunos = new ArrayList<Aluno>();
@@ -43,6 +43,7 @@ public class FazerChamadaController {
 		try {
 			listaAlunos = aDao.listaAlunos();
 			listaAlunoDisciplina = adDao.listaDeFaltas();
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			erro = e.getMessage();
 		} finally {
@@ -52,73 +53,62 @@ public class FazerChamadaController {
 		}
 		return new ModelAndView("chamada");
 	}
-	
-	//POST
+
+	// POST
 	@RequestMapping(name = "chamada", value = "/chamada", method = RequestMethod.POST)
-	public ModelAndView op(@RequestParam Map<String, String> allRequestParam, 
-			ModelMap model) {
+	public ModelAndView op(@RequestParam Map<String, String> allRequestParam, ModelMap model) {
+		Aluno a = new Aluno();
 		Disciplina d = new Disciplina();
 		AlunoDisciplina ad = new AlunoDisciplina();
 		List<AlunoDisciplina> listaAlunoDisciplina = new ArrayList<AlunoDisciplina>();
 		
-		for (String key : allRequestParam.keySet()) {
-				if (key.equals("codigoDisciplina")) {
-					if (key.equals("dataf")) {
-
-						d.setCodigo(Integer.parseInt(allRequestParam.get(key)));
-						d.setNum_aulas(Integer.parseInt(allRequestParam.get(key)));
-						ad.setDisciplina(d);
-						ad.setPresenca('P');
-						ad.setDataf(allRequestParam.get(key));
-					} else {
-						try {
-							if (!allRequestParam.get(key).equals("")) {
-								int numericKey = Integer.parseInt(key);
-								
-								d.setCodigo(numericKey);
-								d.setNum_aulas(Integer.parseInt(allRequestParam.get(key)));
-								
-								AlunoDisciplina ad2 = new AlunoDisciplina();
-								ad2.setDisciplina(d);
-								ad2.setDataf(LocalDate.now().toString());
-								ad2.setPresenca('F');
-								listaAlunoDisciplina.add(ad2);
-							}
-							
-						} catch (NumberFormatException e) {}
-					}
-				
-			}
-			
-		}
-		try {
-			dDao.insereDisciplina(d);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		} 
+		String cmd = allRequestParam.get("button");
 		
-		for (AlunoDisciplina ad1 : listaAlunoDisciplina) {
-			try {
-				adDao.inserePresenca(ad1);
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-				}
-			}
-		
-		List<Aluno> listaAlunos = new ArrayList<Aluno>();
 		String erro = "";
-		try {
-			listaAlunos = aDao.listaAlunos();
-			listaAlunoDisciplina = adDao.listaFaltaPorDisciplina(ad);
-		} catch (ClassNotFoundException | SQLException e) {
-			erro = e.getMessage();
-		} finally {
-			model.addAttribute("listaAlunos", listaAlunos);
-			model.addAttribute("listaAlunoDisciplina", listaAlunoDisciplina);
-			model.addAttribute("erro", erro);
-		}
 		
-		return new ModelAndView("chamada");
+        switch(cmd) {
+            case "Finalizar Chamada":
+            	
+            	for (String key : allRequestParam.keySet()) {
+            		if (key.contains("111048")) {
+        				
+            			d.setCodigo(Integer.parseInt(allRequestParam.get("codigoDisciplina")));
+            			
+        				a.setRa(key);
+        				ad.setAluno(a);
+            			ad.setDisciplina(d);
+            			ad.setPresenca(String.valueOf(allRequestParam.get("presenca")).charAt(0));
+            			ad.setDataf(allRequestParam.get("datepicker"));
+            			
+            			try {
+            				adDao.inserePresenca(ad);
+            			} catch (ClassNotFoundException | SQLException e) {
+            				e.printStackTrace();
+            			}
+            		}
+            	}
+        		return new ModelAndView("chamada");
+            case "Buscar":
+            	
+            	d.setCodigo(Integer.parseInt(allRequestParam.get("codigoDisciplina")));
+        		ad.setDisciplina(d);
+        		ad.setPresenca((String.valueOf(allRequestParam.get("presenca")).charAt(0)));
+        		ad.setDataf(allRequestParam.get("datepicker"));
+        		
+            	try {
+        			listaAlunoDisciplina = adDao.listaFaltaPorDisciplina(ad);
+        			} catch (ClassNotFoundException | SQLException e) {
+        			erro = e.getMessage();
+        			} finally {
+        			model.addAttribute("listaAlunoDisciplina", listaAlunoDisciplina);
+        			model.addAttribute("erro", erro);
+        			}
+
+        		return new ModelAndView("chamada");
+            default:
+        		return new ModelAndView("chamada");
+        }
+		
 	}
 
 }
