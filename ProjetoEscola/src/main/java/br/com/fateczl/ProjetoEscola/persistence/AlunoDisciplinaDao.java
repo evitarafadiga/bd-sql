@@ -27,7 +27,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 		ps.setString(1, ad.getAluno().getRa());
 		ps.setInt(2, ad.getDisciplina().getCodigo());
 		ps.setString(3, ad.getDataf());
-		ps.setString(4, String.valueOf(ad.getPresenca()));
+		ps.setInt(4, ad.getPresenca());
 		ps.execute();
 		ps.close();
 		c.close();	
@@ -58,7 +58,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 			ad2.setDisciplina(d);
 			ad2.setAluno(a);
 			ad2.setDataf(rs.getString("dataf"));
-			ad2.setPresenca(rs.getString("presenca").charAt(0));
+			ad2.setPresenca(rs.getInt("presenca"));
 			
 			lista.add(ad2);
 		}
@@ -91,7 +91,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 			ad2.setDisciplina(d);
 			ad2.setAluno(a);
 			ad2.setDataf(rs.getString("dataf"));
-			ad2.setPresenca(rs.getString("presenca").charAt(0));
+			ad2.setPresenca(rs.getInt("presenca"));
 			
 			lista.add(ad2);
 		}
@@ -127,7 +127,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 			ad2.setDisciplina(d);
 			ad2.setAluno(a);
 			ad2.setDataf(rs.getString("dataf"));
-			ad2.setPresenca(rs.getString("presenca").charAt(0));
+			ad2.setPresenca(rs.getInt("presenca"));
 			
 			lista.add(ad2);
 		}
@@ -141,7 +141,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 	public List<AlunoDisciplina> listaAlunos() throws SQLException, ClassNotFoundException {
 		Connection c = gDao.getConnection();
 		List<AlunoDisciplina> lista = new ArrayList<AlunoDisciplina>();
-		String sql = "SELECT * FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina  ";
+		String sql = "SELECT DISTINCT FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND a.ra LIKE '111048%' AND f.dataf = '2021-01-01" ;
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -160,7 +160,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 			ad2.setDisciplina(d);
 			ad2.setAluno(a);
 			ad2.setDataf(rs.getString("dataf"));
-			ad2.setPresenca(rs.getString("presenca").charAt(0));
+			ad2.setPresenca(rs.getInt("presenca"));
 			
 			lista.add(ad2);
 		}

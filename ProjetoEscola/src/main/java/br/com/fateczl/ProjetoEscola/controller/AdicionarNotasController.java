@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.fateczl.ProjetoEscola.model.Aluno;
 import br.com.fateczl.ProjetoEscola.model.AlunoDisciplina;
 import br.com.fateczl.ProjetoEscola.model.Avaliacao;
-import br.com.fateczl.ProjetoEscola.model.Disciplina;
 import br.com.fateczl.ProjetoEscola.model.Notas;
 import br.com.fateczl.ProjetoEscola.persistence.AlunoDao;
 import br.com.fateczl.ProjetoEscola.persistence.AlunoDisciplinaDao;

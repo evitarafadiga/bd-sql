@@ -51,32 +51,15 @@
 	
 			<br /><br />
 				
-				<h1>Alunos matriculados</h1>
-				<c:if test="${not empty listaAlunos }">
-				
-				<table>
-				<c:forEach items="${listaAlunos }" var="a">
-				<tr>
-					<td><input type="text" value="${a.ra }" readonly /></td>
-					<td><c:out value="${a.nome_a }" /></td>
-					<td><input type="text" id="presenca" name="${a.ra }" min="0" max="4" value="4" placeholder="4"></td>
-				</tr>
-				</c:forEach>
-				<tr>
-					 <td colspan="4"><input type="submit" value="Finalizar Chamada" id="button" name="button"></td> 
-				</tr>
-				</table>
-				</c:if>
-				<br /><br />
 				<c:if test="${not empty listaAlunoDisciplina }">
 				<table>
 		
 				<c:forEach items="${listaAlunoDisciplina }" var="ad">
 				<tr>
-					<td><input type="text" value="${ad.aluno.ra }" name="${ad.aluno.ra }" readonly /></td>
+					<td><c:out value="${ad.aluno.ra }" /></td>
 					<td><c:out value="${ad.aluno.nome_a }" /></td>
 					<td><c:out value="${ad.disciplina.sigla }" /></td>
-					<td><input type="text" id="presenca" name="presenca" min="0" max="4" value="4" placeholder="4"></td>
+					<td><input type="number" id="presenca" name="${ad.aluno.ra }" min="0" max="4" value="4" placeholder="4"></td>
 				</tr>
 				</c:forEach>
 				<tr>
@@ -85,7 +68,7 @@
 				</table>
 				</c:if>
 				
-			<br /><br />
+			<br /><br /> 
 				
 			</form>
 			

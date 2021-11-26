@@ -57,11 +57,11 @@ public class FazerChamadaController {
 	// POST
 	@RequestMapping(name = "chamada", value = "/chamada", method = RequestMethod.POST)
 	public ModelAndView op(@RequestParam Map<String, String> allRequestParam, ModelMap model) {
-		Aluno a = new Aluno();
-		Disciplina d = new Disciplina();
-		AlunoDisciplina ad = new AlunoDisciplina();
-		List<AlunoDisciplina> listaAlunoDisciplina = new ArrayList<AlunoDisciplina>();
 		
+		List<AlunoDisciplina> listaAlunoDisciplina = new ArrayList<AlunoDisciplina>();
+		int cod = Integer.parseInt(allRequestParam.get("codigoDisciplina"));
+		int presenca;
+		String dt = allRequestParam.get("datepicker");
 		String cmd = allRequestParam.get("button");
 		
 		String erro = "";
@@ -70,16 +70,23 @@ public class FazerChamadaController {
             case "Finalizar Chamada":
             	
             	for (String key : allRequestParam.keySet()) {
+            		
             		if (key.contains("111048")) {
-        				
-            			d.setCodigo(Integer.parseInt(allRequestParam.get("codigoDisciplina")));
             			
+            			presenca = Integer.parseInt(allRequestParam.get(key));
+            			
+            			Aluno a = new Aluno();
+            			Disciplina d = new Disciplina();
+            			AlunoDisciplina ad = new AlunoDisciplina();
+            			
+            			d.setCodigo(cod);
         				a.setRa(key);
         				ad.setAluno(a);
             			ad.setDisciplina(d);
-            			ad.setPresenca(String.valueOf(allRequestParam.get("presenca")).charAt(0));
-            			ad.setDataf(allRequestParam.get("datepicker"));
+            			ad.setPresenca(presenca);
+            			ad.setDataf(dt);
             			
+            			System.out.println(ad.toString());
             			try {
             				adDao.inserePresenca(ad);
             			} catch (ClassNotFoundException | SQLException e) {
@@ -89,10 +96,12 @@ public class FazerChamadaController {
             	}
         		return new ModelAndView("chamada");
             case "Buscar":
-            	
+    			Disciplina d = new Disciplina();
+    			AlunoDisciplina ad = new AlunoDisciplina();
+
             	d.setCodigo(Integer.parseInt(allRequestParam.get("codigoDisciplina")));
         		ad.setDisciplina(d);
-        		ad.setPresenca((String.valueOf(allRequestParam.get("presenca")).charAt(0)));
+        		ad.setPresenca(Integer.parseInt(allRequestParam.get("presenca")));
         		ad.setDataf(allRequestParam.get("datepicker"));
         		
             	try {

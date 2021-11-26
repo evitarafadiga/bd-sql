@@ -5,7 +5,7 @@ public class AlunoDisciplina {
 	private Aluno aluno;
 	private Disciplina disciplina;
 	private String dataf;
-	private char presenca;
+	private int presenca;
 	
 	public Aluno getAluno() {
 		return aluno;
@@ -25,10 +25,10 @@ public class AlunoDisciplina {
 	public void setDataf(String dataf) {
 		this.dataf = dataf;
 	}
-	public char getPresenca() {
+	public int getPresenca() {
 		return presenca;
 	}
-	public void setPresenca(char presenca) {
+	public void setPresenca(int presenca) {
 		this.presenca = presenca;
 	}
 	
