@@ -2,14 +2,14 @@ package br.com.fateczl.ProjetoEscola.model;
 
 public class Avaliacao {
 	
-	private int codigo;
+	private int codigo_a;
 	private String tipo;
 	
-	public int getCodigo() {
-		return codigo;
+	public int getCodigo_a() {
+		return codigo_a;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCodigo_a(int codigo_a) {
+		this.codigo_a = codigo_a;
 	}
 	public String getTipo() {
 		return tipo;
@@ -20,7 +20,7 @@ public class Avaliacao {
 	
 	@Override
 	public String toString() {
-		return "Avaliacao [codigo=" + codigo + ", tipo=" + tipo + "]";
+		return "Avaliacao [codigo=" + codigo_a + ", tipo=" + tipo + "]";
 	}
 	
 }

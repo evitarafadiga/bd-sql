@@ -72,7 +72,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 	public List<AlunoDisciplina> listaDeFaltas() throws SQLException, ClassNotFoundException {
 		Connection c = gDao.getConnection();
 		List<AlunoDisciplina> lista = new ArrayList<AlunoDisciplina>();
-		String sql = "SELECT * FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina  ";
+		String sql = "SELECT * FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina ";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -141,7 +141,7 @@ public class AlunoDisciplinaDao implements IAlunoDisciplinaDao{
 	public List<AlunoDisciplina> listaAlunos() throws SQLException, ClassNotFoundException {
 		Connection c = gDao.getConnection();
 		List<AlunoDisciplina> lista = new ArrayList<AlunoDisciplina>();
-		String sql = "SELECT DISTINCT FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND a.ra LIKE '111048%' AND f.dataf = '2021-01-01" ;
+		String sql = "SELECT ra, nome_a, sigla, turno, presenca FROM disciplinas d, aluno a, faltas f WHERE a.ra = f.ra_aluno AND d.codigo = f.codigo_disciplina AND a.ra LIKE '111048%' AND f.dataf = '2021-01-01' ";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {

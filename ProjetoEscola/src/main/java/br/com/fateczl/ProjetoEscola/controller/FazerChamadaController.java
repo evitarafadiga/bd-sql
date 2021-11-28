@@ -1,7 +1,6 @@
 package br.com.fateczl.ProjetoEscola.controller;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class FazerChamadaController {
 		String erro = "";
 		try {
 			listaAlunos = aDao.listaAlunos();
-			listaAlunoDisciplina = adDao.listaDeFaltas();
+			listaAlunoDisciplina = adDao.listaAlunos();
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			erro = e.getMessage();
@@ -101,7 +100,7 @@ public class FazerChamadaController {
 
             	d.setCodigo(Integer.parseInt(allRequestParam.get("codigoDisciplina")));
         		ad.setDisciplina(d);
-        		ad.setPresenca(Integer.parseInt(allRequestParam.get("presenca")));
+        		//ad.setPresenca(Integer.parseInt(allRequestParam.get("presenca")));
         		ad.setDataf(allRequestParam.get("datepicker"));
         		
             	try {

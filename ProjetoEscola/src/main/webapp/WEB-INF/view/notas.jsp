@@ -14,29 +14,43 @@
 	</div>
 	<div>
 		<form action="notas" method="post">
-		
-			<br /><br />
-			<c:if test="${not empty listaAlunos }">
-			<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Código da Disciplina"></td>
-			<br /><br />
 			<table>
-				<c:forEach items="${listaAlunos }" var="a">
+				<tr>	
+				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Código da Disciplina" ></td>
+				<td><input type="number" id="codigoAvaliacao" name="codigoAvaliacao" min="1001" value="1001" placeholder="Código da Avaliação" ></td>
+				<td><input type="text" id="tipo" value="${n.avaliacao.tipo }" name="tipo" /></td>
+				<td colspan="1"><input type="submit" value="Buscar" id="button" name="button"></td>
+				</tr>
+				</table>
+				
+				<br /><br />
+				
+				<c:if test="${not empty listaNotas }">
+				<table>	
+				<c:forEach items="${listaNotas }" var="n">
 				<tr>
-					<td><c:out value="${a.ra }" /></td>
-					<td><c:out value="${a.nome_a }" /></td>
-					<td><c:out value="${ad.disciplina.sigla }" /></td>
-					<td><input type="text" id=${ad.presenca } name=${ad.presenca } min="0" size="1"></td>
+					<td><c:out value="${n.aluno.ra }" /></td>
+					<td><c:out value="${n.aluno.nome_a }" /></td>
+					<td><c:out value="${n.disciplina.sigla }" /></td>
+					<td>-<c:out value="${n.disciplina.turno }" /></td>
+					<td> | Avaliação no. <c:out value="${n.avaliacao.codigo_a }" /></td>
+					<td><input type="number" step="0.1" id="nota" name="${n.aluno.ra }" value="0.0" min="0" max="10" size="5"></td>
 				</tr>
 				</c:forEach>
 				<tr>
-					<td colspan="4"><input type="submit" value="Finalizar Chamada" id="button" name="button"></td>
+					<td colspan="4"><input type="submit" value="Inserir" id="button" name="button"></td>
 				</tr>
 			</table>
 			</c:if>
 			
-			</form>
-			
-			
+		<br /><br /> 
+		
+		</form>
+	</div>
+	<div>
+		<c:if test="${not empty erro }">
+			<H2 style="color: red"><c:out value="${erro }" /></H2>
+		</c:if>
 	</div>
 </body>
 </html>

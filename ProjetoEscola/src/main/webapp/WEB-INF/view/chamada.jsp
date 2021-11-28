@@ -13,7 +13,6 @@
 		<br />
 	</div>
 	<div>
-		
 		<form action="chamada" method="post">
 			<table>
 			<tr>
@@ -39,7 +38,7 @@
 				</head>
 				<body>
  
-				<p>Data: <input type="text" id="datepicker" name="datepicker" required></p>
+				<p>Data: <input type="text" id="datepicker" name="datepicker" value="2021-01-01" required></p>
       			
 				</body>
 				</div>
@@ -71,8 +70,6 @@
 			<br /><br /> 
 				
 			</form>
-			
-			
 	</div>
 </body>
 </html>
