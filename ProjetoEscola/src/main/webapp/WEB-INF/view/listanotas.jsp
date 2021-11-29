@@ -12,13 +12,20 @@
 		<jsp:include page="menu.jsp" />
 		<br />
 	</div>
-	<div>
+	<div align="center">
+		<form action="relatorio" method="post" target="_blank">
+			<table>
+				<tr>
+				<td colspan="4"><input type="submit" value="Gerar Relatorio de Notas" id="button" name="button"></td>
+				</tr>
+			</table>
+		</form>
 			<form action="listanotas" method="post">
 			
 			<table>
 			 <tr>
 				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Codigo Disciplina" required></td>			
-				<td colspan="1"><input type="submit" value="Buscar" id="button" name="button"></td>
+				<td colspan="4"><input type="submit" value="Buscar" id="button" name="button"></td>
 			</tr>			
 			</table>
 	

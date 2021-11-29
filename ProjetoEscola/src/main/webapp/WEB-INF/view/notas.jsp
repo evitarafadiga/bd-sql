@@ -12,13 +12,13 @@
 		<jsp:include page="menu.jsp" />
 		<br />
 	</div>
-	<div>
+	<div align="center">
 		<form action="notas" method="post">
 			<table>
 				<tr>	
-				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Código da Disciplina" ></td>
-				<td><input type="number" id="codigoAvaliacao" name="codigoAvaliacao" min="1001" value="1001" placeholder="Código da Avaliação" ></td>
-				<td><input type="text" id="tipo" value="${n.avaliacao.tipo }" name="tipo" /></td>
+				<td><input type="text" id="codigoDisciplina" name="codigoDisciplina" min="0" placeholder="Código da Disciplina" required></td>
+				<td><input type="number" id="codigoAvaliacao" name="codigoAvaliacao" min="1001" value="1001" placeholder="Código da Avaliação" required></td>
+				<td><input type="text" id="tipo" value="${n.avaliacao.tipo }" name="tipo" required /></td>
 				<td colspan="1"><input type="submit" value="Buscar" id="button" name="button"></td>
 				</tr>
 				</table>

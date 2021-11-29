@@ -14,7 +14,7 @@
          http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	<context:component-scan
-		base-package="br.com.fateczl.ProjetoEscola" /><!--Mudar para o package name do Spring Initializr -->
+		base-package="br.com.fateczl.ProjetoEscola" />
 
 	<!-- Configuration defining views files -->
 

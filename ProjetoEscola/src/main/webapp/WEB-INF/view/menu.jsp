@@ -12,10 +12,8 @@
 			<tr>
 				<td style="border: 1px solid black"><a href = "notas">Notas</a></td>
 				<td style="border: 1px solid black"><a href = "chamada">Chamada</a></td>
-			<tr>
-			<tr>
-			<td style="border: 1px solid black"><a href = "lista">Lista de Presenças</a></td>
-			<td style="border: 1px solid black"><a href = "listanotas">Lista de Notas</a></td>
+				<td style="border: 1px solid black"><a href = "lista">Lista de Presenças</a></td>
+				<td style="border: 1px solid black"><a href = "listanotas">Lista de Notas</a></td>
 			</tr>	
 		</table>
 	</div>
